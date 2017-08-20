@@ -1,0 +1,46 @@
+{% extends "::layout.html.twig" %}
+{% block title %} Acccueil - {{ parent() }} {% endblock %}
+
+{% block body %}
+
+    <h2 class=" row center">Commander</h2>
+
+    <p class="row center">
+    </p>
+        <form class="col s12">
+
+            <div class="row center" >
+                    <div class="input-field col s6 push-s3">
+                    Jour de visite :
+                        <input type="text" class="datepicker" id="jourVisite"/>
+                    </div>
+            </div>
+            <div class="row center">
+                <div class="input-field col s6 push-s3">
+                        Nombre de billet :
+                        <input type="number" id="nombreBillet"/>
+                </div>
+            </div>
+
+
+            </div>
+            <div class="row center">
+                <p class="row center">Type de billet:<br><br>
+                    <input name="typeBillet" type="radio" id="journee"/>
+                    <label for="journee">Journée</label>
+                    <input name="typeBillet" type="radio" id="demiJournee"/>
+                    <label for="demiJournee">Demi journée</label>
+                </p>
+            </div>
+            <div class="row center">
+                <div class="input-field col s6 push-s3">
+                    Email :
+                    <input id="email" type="email" class="validate">
+                </div>
+            </div>
+            <div class="row center">
+                <a class="waves-effect waves-light btn" href="{{ path('coordonne') }}">Suivant</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

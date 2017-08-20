@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Réservation de billet pour le musée du Louvre (projet4)">
+
+    <title>{% block title %}Musée du Louvre - Réservation{% endblock %}</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+<body>
+    <div id="global">
+        <!------------------------ Entête ------------------------>
+        <header>
+
+        </header>
+        <!------------------------ Contenu ------------------------>
+        <div class="container" id="contenu">
+            <a href="{{ path('homepage') }}">
+                <h1 class="header center orange-text">Musée du Louvre</h1>
+            </a>
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!------------------------ Pied de page ------------------------>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+
+                </div>
+                <div class="footer-copyright">
+                    <div class="container">
+                        @ 2017 <a href="{{ path('mentions') }}">Mentions légales</a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </footer>
+    </div>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script>
+        /*
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Aujourd\'hui',
+            clear: 'annuler',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });*/
+
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 2, // Creates a dropdown of 15 years to control year
+            labelMonthNext: 'Mois suivant',
+            labelMonthPrev: 'Mois précédent',
+            labelMonthSelect: 'Selectionner le mois',
+            labelYearSelect: 'Selectionner une année',
+            monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+            monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+            weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+            weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+            weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+            today: 'Aujourd\'hui',
+            clear: 'Réinitialiser',
+            close: 'Fermer',
+            format: 'dd/mm/yyyy'
+
+        });
+    </script>
+
+</body>
+</html>
