@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class StaticController
+class StaticController extends Controller
 {
     /**
      * @param Request $request
@@ -20,6 +20,6 @@ class StaticController
      */
     public function mentionsAction(Request $request)
     {
-        return $this->render(':static:mentions.html.twig');
+        return $this->render(':static:mentions.html.twig', array());
     }
 }
