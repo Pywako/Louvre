@@ -1,31 +1,43 @@
 {% extends "::layout.html.twig" %}
 {% block title %} Acccueil - {{ parent() }} {% endblock %}
 
-{% block body %}
+{% block breadcrumbs %}
+    <nav>
+        <div class="nav-wrapper light-blue">
+            <div class="col s12">
+                <a href="{{ 'homepage' }}" class="breadcrumb">Accueil</a>
+                <a href="#" class="breadcrumb">Commander</a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
-    <h2 class=" row center">Commander</h2>
 
-    <p class="row center">
-    </p>
-        <form class="col s12">
+{% block image %}
+    <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+{% endblock %}
 
+{% block etape %}Commander{% endblock %}
+
+{% block contenu %}
+    {{ form(form) }}
+    <div class="row">
+        <form class="col s12" >
             <div class="row center" >
-                    <div class="input-field col s6 push-s3">
+                <div class="input-field col s6 push-s3">
                     Jour de visite :
-                        <input type="text" class="datepicker" id="jourVisite"/>
-                    </div>
+                    <input type="text" class="datepicker" id="jourVisite" required/>
+                </div>
             </div>
             <div class="row center">
                 <div class="input-field col s6 push-s3">
-                        Nombre de billet :
-                        <input type="number" id="nombreBillet"/>
+                    Nombre de billet :
+                    <input type="number" id="nombreBillet"/>
                 </div>
             </div>
 
-
-            </div>
             <div class="row center">
-                <p class="row center">Type de billet:<br><br>
+                <p class="row center">Type de billet:
                     <input name="typeBillet" type="radio" id="journee"/>
                     <label for="journee">Journée</label>
                     <input name="typeBillet" type="radio" id="demiJournee"/>
@@ -39,7 +51,7 @@
                 </div>
             </div>
             <div class="row center">
-                <a class="waves-effect waves-light btn" href="{{ path('coordonne') }}">Suivant</a>
+                <a class="waves-effect waves-light btn amber accent-4" href="{{ path('coordonne') }}">Suivant</a>
             </div>
         </form>
     </div>

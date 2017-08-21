@@ -1,7 +1,19 @@
 {% extends "::layout.html.twig" %}
-{% block body %}
+
+{% block image %}
+    <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+{% endblock %}
+
+{% block etape %}Confirmation{% endblock %}
+
+{% block contenu %}
     <div class="row">
-        <p>Confirmation d'achat</p>
-        <p>La transaction s'est bien déroulé. Vous retrouverez vos billet dans la boîte mail.</p>
+        <form class="col s12">
+            <div class="row center">
+                <i class="center-align large material-icons light-blue-text">check_circle</i>
+                <p class="center-align">Confirmation d'achat</p>
+                <p class="center-align">La transaction s'est bien déroulé. Vous retrouverez vos billet dans la boîte mail.</p>
+            </div>
+        </form>
     </div>
 {% endblock %}

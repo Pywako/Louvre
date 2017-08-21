@@ -24,6 +24,6 @@ $('.datepicker').pickadate({
     today: 'Aujourd\'hui',
     clear: 'Réinitialiser',
     close: 'Fermer',
-    format: 'dd/mm/yyyy'
-
+    format: 'dd/mm/yyyy',
+    disable: [1,3]
 });

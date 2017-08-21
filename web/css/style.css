@@ -1,9 +1,16 @@
 body {
     display: flex;
     min-height: 100vh;
+    height: auto;
     flex-direction: column;
 }
 
 main {
     flex: 1 0 auto;
+}
+h1{
+    margin: 60px 20px 40px 20px;
+}
+#banniere{
+
 }

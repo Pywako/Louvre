@@ -1,5 +1,22 @@
 {% extends "::layout.html.twig" %}
-{% block body %}
+
+{% block breadcrumbs %}
+    <nav>
+        <div class="nav-wrapper light-blue">
+            <div class="col s12">
+                <a href="{{ 'homepage' }}" class="breadcrumb">Accueil</a>
+                <a href="{{ 'commander' }}" class="breadcrumb">Commander</a>
+                <a href="#" class="breadcrumb">Coordonnés</a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+{% block image %}
+    <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+{% endblock %}
+
+{% block etape %}Coordonnées{% endblock %}
+{% block contenu %}
     <div class="row">
         <form class="col s12">
             <div class="row center">
@@ -33,7 +50,7 @@
                 </div>
             </div>
             <div class="row center">
-                <a class="waves-effect waves-light btn" href="{{ path('paiement') }}">Suivant</a>
+                <a class="waves-effect waves-light btn amber accent-4" href="{{ path('paiement') }}">Suivant</a>
             </div>
         </form>
     </div>

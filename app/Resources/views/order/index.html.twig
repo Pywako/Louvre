@@ -2,17 +2,31 @@
 
 {% block title %} Acccueil - {{ parent() }} {% endblock %}
 
-{% block body %}
+{% block breadcrumbs %}
+    <a href="#" class="breadcrumb">Accueil</a>
+{% endblock %}
 
+{% block image %}
+        <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+{% endblock %}
+
+{% block etape %}Accueil{% endblock %}
+
+{% block bouton %}
+    <a class="btn-floating btn-large halfway-fab waves-effect waves-light amber accent-4" href="{{ path('commander') }}">
+        <i class="material-icons">add</i>
+    </a>
+{% endblock %}
+
+{% block contenu %}
     <p class="row center">
-        Bienvenue sur la platform de réservation de billet du musée du Louvre.
+    Bienvenue sur la platform de réservation de billet du musée du Louvre.
     </p>
-    <p class="row center">En quelques clic</p>
-    <div class="row center">
-        <a class="btn-floating btn-large waves-effect waves-light amber accent-4" href="{{ path('commander') }}"><i class="material-icons">check</i></a>
-    </div>
     <p class="row center">
         Les horraires d'ouvertures:
         tarifs:
     </p>
+    <div class="row center">
+        <a class="waves-effect waves-light btn amber accent-4" href="{{ path('commander') }}">Commander</a>
+    </div>
 {% endblock %}
