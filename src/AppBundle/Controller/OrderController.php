@@ -8,6 +8,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Booking;
+use AppBundle\Form\Type\BookingCommanderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,8 +32,10 @@ class OrderController extends Controller
      */
     public function commanderAction(Request $request)
     {
+        $booking = new Booking();
+        $form = $this->createForm(BookingCommanderType::class, $booking);
         return $this->render(':order:commander.html.twig', array(
-
+            'form' => $form->createView()
         ));
     }
 
