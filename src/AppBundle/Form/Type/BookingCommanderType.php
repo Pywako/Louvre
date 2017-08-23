@@ -23,7 +23,11 @@ class BookingCommanderType extends AbstractType
     {
         $builder
             ->add('email',      EmailType::class)
-            ->add('dateVisite',      DateType::class, ['widget'=> 'single_text'])
+            ->add('dateVisite',      DateType::class, [
+                'widget'=> 'single_text',
+                'html5'=> false,
+                'attr' =>['class' => 'datepicker']
+                ])
             ->add('nbTicket',       IntegerType::class)
             ->add('type',      CheckboxType::class)
         ;
