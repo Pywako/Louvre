@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class OrderController extends Controller
+class BookingController extends Controller
 {
     /**
      * @param Request $request
@@ -22,49 +22,48 @@ class OrderController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render(':order:index.html.twig', array(
-
+        return $this->render(':booking:index.html.twig', array(
         ));
     }
 
     /**
-     * @Route("/commander", name="commander")
+     * @Route("/order", name="step1")
      */
-    public function commanderAction(Request $request)
+    public function orderAction(Request $request)
     {
         $booking = new Booking();
         $form = $this->createForm(BookingCommanderType::class, $booking);
-        return $this->render(':order:commander.html.twig', array(
+        return $this->render(':booking:order.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/coordonne", name="coordonne")
+     * @Route("/data", name="step2")
      */
-    public function coordonneAction()
+    public function dataAction()
     {
-        return $this->render(':order:coordonne.html.twig', array(
+        return $this->render(':booking:data.html.twig', array(
 
         ));
     }
 
     /**
-     * @Route("/paiement", name="paiement")
+     * @Route("/buy", name="step3")
      */
-    public function paiementAction()
+    public function buyAction()
     {
-        return $this->render(':order:paiement.html.twig', array(
+        return $this->render(':booking:buy.html.twig', array(
 
         ));
     }
 
     /**
-     * @Route("/confirmation", name="confirmation")
+     * @Route("/confirm", name="confirm")
      */
-    public function confirmationAction()
+    public function confirmAction()
     {
-        return $this->render(':order:confirmation.html.twig', array(
+        return $this->render(':booking:confirm.html.twig', array(
 
         ));
     }

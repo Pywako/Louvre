@@ -13,7 +13,12 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Imporation des styles et materialize dans twig-->
+    {% block stylesheets %}
+        <link href="{{ asset('css/materialize.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/theme_formulaire.css') }}" rel="stylesheet">
+    {% endblock %}
+
 
 </head>
 <body>
@@ -64,6 +69,10 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
+    {% block javascripts %}
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    {% endblock %}
 
 </body>
 </html>
