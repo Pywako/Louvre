@@ -20,7 +20,10 @@
 {% block etape %}Commander{% endblock %}
 
 {% block contenu %}
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form(form) }}
+        <input type="submit" value="commander">
+    {{ form_end(form) }}
     <div class="row">
             <div class="row center">
                 <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step2') }}">Suivant</a>
