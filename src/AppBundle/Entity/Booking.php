@@ -32,9 +32,9 @@ class Booking
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateVisite", type="date")
+     * @ORM\Column(name="dateVisit", type="date")
      */
-    private $dateVisite;
+    private $dateVisit;
 
     /**
      * @var \DateTime
@@ -105,27 +105,27 @@ class Booking
     }
 
     /**
-     * Set dateVisite
+     * Set dateVisit
      *
-     * @param \DateTime $dateVisite
+     * @param \DateTime $dateVisit
      *
      * @return Booking
      */
-    public function setDateVisite($dateVisite)
+    public function setDateVisit($dateVisit)
     {
-        $this->dateVisite = $dateVisite;
+        $this->dateVisit = $dateVisit;
 
         return $this;
     }
 
     /**
-     * Get dateVisite
+     * Get dateVisit
      *
      * @return \DateTime
      */
-    public function getDateVisite()
+    public function getDateVisit()
     {
-        return $this->dateVisite;
+        return $this->dateVisit;
     }
 
     /**
