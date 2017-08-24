@@ -11,6 +11,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -23,13 +24,18 @@ class BookingCommanderType extends AbstractType
     {
         $builder
             ->add('email',      EmailType::class)
-            ->add('dateVisite',      DateType::class, [
+            ->add('dateVisit',      DateType::class, [
                 'widget'=> 'single_text',
                 'html5'=> false,
                 'attr' =>['class' => 'datepicker']
                 ])
             ->add('nbTicket',       IntegerType::class)
-            ->add('type',      CheckboxType::class)
+            ->add('type',      ChoiceType::class, array(
+                'choices' =>array(
+                    'Journée' => 1,
+                    'Demi-journée' => 2,
+                )
+            ));
         ;
     }
 
