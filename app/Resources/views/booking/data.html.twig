@@ -4,54 +4,27 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ 'homepage' }}" class="breadcrumb">Accueil</a>
-                <a href="{{ 'commander' }}" class="breadcrumb">Commander</a>
+                <a href="{{ '' }}" class="breadcrumb">Accueil</a>
+                <a href="{{ 'order' }}" class="breadcrumb">Commander</a>
                 <a href="#" class="breadcrumb">Coordonnés</a>
             </div>
         </div>
     </nav>
 {% endblock %}
 {% block image %}
-    <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+    <img src="{{ asset('images/pyramide.jpg') }}" id="banniere">
 {% endblock %}
 
 {% block etape %}Coordonnées{% endblock %}
 {% block contenu %}
-    <div class="row">
-        <form class="col s12">
-            <div class="row center">
-                <div class="input-field col s6 push-s3">
-                    <input placeholder="Entrez votre prénom" id="prenom" type="text" class="validate">
-                    <label for="prenom">Prénom</label>
-                </div>
-            </div>
-            <div class="row center">
-                <div class="input-field col s6 push-s3">
-                    <input placeholder="Entrez votre nom" id="nom" type="text" class="validate">
-                    <label for="nom">Nom</label>
-                </div>
-            </div>
-            <div class="row center">
-                <div class="input-field col s6 push-s3">
-                    <label for="dateNaissance">Date de naissance</label>
-                    <input type="text" class="datepicker" id="dateNaissance"/>
-                </div>
-            </div>
-            <div class="row center">
-                <div class="input-field col s6 push-s3">
-                    <label for="pays">Pays</label>
-                    <input type="text" class="" id="pays"/>
-                </div>
-            </div>
-            <div class="row center">
-                <div class="input-field col s6 push-s3">
-                    <input type="checkbox" id="tarifReduit" />
-                    <label for="tarifReduit">Tarif réduit</label>
-                </div>
-            </div>
-            <div class="row center">
-                <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step3') }}">Suivant</a>
-            </div>
-        </form>
-    </div>
+    {{ form_start(form) }}
+    {{ form(form) }}
+
+
+    <input type="submit" value="commander">
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block datepicker %}
+    <script src="{{ asset('js/datepickerBirth.js') }}"></script>
 {% endblock %}

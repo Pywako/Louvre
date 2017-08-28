@@ -9,7 +9,9 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
+use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\BookingCommanderType;
+use AppBundle\Form\Type\DataCommanderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,8 +45,10 @@ class BookingController extends Controller
      */
     public function dataAction()
     {
+        $ticket = new Ticket();
+        $form = $this->createForm(DataCommanderType::class, $ticket);
         return $this->render(':booking:data.html.twig', array(
-
+            'form' => $form->createView()
         ));
     }
 
@@ -66,5 +70,15 @@ class BookingController extends Controller
         return $this->render(':booking:confirm.html.twig', array(
 
         ));
+    }
+
+    public function showAction($slug)
+    {
+        $url = $this->generateUrl(
+            'homepage',
+            array('slug' =>'homepage')
+        );
+
+        return $url;
     }
 }

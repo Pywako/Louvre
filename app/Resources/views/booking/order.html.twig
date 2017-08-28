@@ -14,7 +14,7 @@
 
 
 {% block image %}
-    <img src="{{ asset('images/pyramide3.jpg') }}" id="banniere">
+    <img src="{{ asset('images/pyramide.jpg') }}" id="banniere">
 {% endblock %}
 
 {% block etape %}Commander{% endblock %}
@@ -22,6 +22,8 @@
 {% block contenu %}
     {{ form_start(form) }}
         {{ form(form) }}
+
+
         <input type="submit" value="commander">
     {{ form_end(form) }}
     <div class="row">
@@ -30,4 +32,8 @@
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block datepicker %}
+    <script src="{{ asset('js/datepickerDay.js') }}"></script>
 {% endblock %}
