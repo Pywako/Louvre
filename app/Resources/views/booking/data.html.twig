@@ -4,8 +4,8 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ '' }}" class="breadcrumb">Accueil</a>
-                <a href="{{ 'order' }}" class="breadcrumb">Commander</a>
+                <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
+                <a href="{{ path('step1') }}" class="breadcrumb">Commander</a>
                 <a href="#" class="breadcrumb">Coordonnés</a>
             </div>
         </div>
@@ -18,9 +18,8 @@
 {% block etape %}Coordonnées{% endblock %}
 {% block contenu %}
     {{ form_start(form) }}
+        {{ form(form) }}
     {{ form(form) }}
-
-
     <input type="submit" value="commander">
     {{ form_end(form) }}
 {% endblock %}

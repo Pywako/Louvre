@@ -5,7 +5,7 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ 'homepage' }}" class="breadcrumb">Accueil</a>
+                <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
                 <a href="#" class="breadcrumb">Commander</a>
             </div>
         </div>
@@ -21,9 +21,10 @@
 
 {% block contenu %}
     {{ form_start(form) }}
-        {{ form(form) }}
-
-
+        {{ form_row(form.nbTicket) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.dateVisit) }}
+        {{ form_row(form.type) }}
         <input type="submit" value="commander">
     {{ form_end(form) }}
     <div class="row">
