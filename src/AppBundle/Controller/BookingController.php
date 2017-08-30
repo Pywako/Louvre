@@ -10,8 +10,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
-use AppBundle\Form\Type\BookingCommanderType;
-use AppBundle\Form\Type\DataCommanderType;
+use AppBundle\Form\Type\BookingStep1Type;
+use AppBundle\Form\Type\BookingTicketsType;
+use AppBundle\Form\Type\BookingStep2Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,14 @@ class BookingController extends Controller
     public function orderAction(Request $request)
     {
         $booking = new Booking();
-        $form = $this->createForm(BookingCommanderType::class, $booking);
+        $form = $this->createForm(BookingStep1Type::class, $booking);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $request->getSession()->set( 'booking', $booking);
+            return $this->redirectToRoute('step2');
+        }
         return $this->render(':booking:order.html.twig', array(
             'form' => $form->createView()
         ));
@@ -43,10 +51,15 @@ class BookingController extends Controller
     /**
      * @Route("/data", name="step2")
      */
-    public function dataAction()
+    public function dataAction(Request $request)
     {
-        $ticket = new Ticket();
-        $form = $this->createForm(DataCommanderType::class, $ticket);
+        $booking = $request->getSession()->get('booking');
+        $form = $this->createForm(BookingTicketsType::class, $booking);
+        $booking->addTicket(new Ticket());
+        $booking->addTicket(new Ticket());
+        $booking->addTicket(new Ticket());
+
+        dump($booking);
         return $this->render(':booking:data.html.twig', array(
             'form' => $form->createView()
         ));

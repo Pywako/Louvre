@@ -33,8 +33,20 @@ $('.datepicker').pickadate({
     close: 'Fermer',
     format: 'dd/mm/yyyy',
     firstDay: 'Mon',
+    min: new Date(),
+    max: [year+1, month, day],
     disable: [
         2,7,
-        { from: -300, to: true }
+        [year,0,1],
+        //Lundi paque
+        [year,4,1],
+        [year,4,8],
+        // Jeudi ascension
+        // Lundi pentecôte
+        [year, 6,14],
+        [year, 7,15],
+        [year,10,1],
+        [year, 10, 11],
+        [year,11,25]
     ]
 });
