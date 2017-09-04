@@ -11,6 +11,7 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,6 +23,7 @@ class BookingTicketsType extends AbstractType
             ->add('tickets',      CollectionType::class, array(
                 'entry_type' => BookingStep2Type::class
             ))
+            ->add('continuer', SubmitType::class );
             ;
         ;
     }

@@ -14,25 +14,22 @@
 
 
 {% block image %}
-    <img src="{{ asset('images/pyramide.jpg') }}" id="banniere">
+    <img src="{{ asset('images/pyramide2.jpg') }}" id="banniere">
 {% endblock %}
 
 {% block etape %}Commander{% endblock %}
 
 {% block contenu %}
     {{ form_start(form) }}
-        {{ form_row(form.nbTicket) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.dateVisit) }}
-        {{ form_row(form.type) }}
-        <input type="submit" value="commander">
-    {{ form_end(form) }}
-    <div class="row">
-            <div class="row center">
-                <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step2') }}">Suivant</a>
-            </div>
-        </form>
+    {{ form_errors(form) }}
+        {{ form_row(form.nbTicket,{'label': 'Nombre de billet'}) }}
+        {{ form_row(form.email, {'label': 'Email'}) }}
+        {{ form_row(form.dateVisit, {'label': 'Date de visite'}) }}
+        {{ form_row(form.type, {'label': 'Type de billet'}) }}
+    <div class="row center">
+        {{ form_row(form.continuer, {'attr': {'class' : 'waves-effect waves-light btn amber accent-4'}}) }}
     </div>
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block datepicker %}

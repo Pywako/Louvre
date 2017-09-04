@@ -18,9 +18,9 @@
 {% block etape %}Coordonnées{% endblock %}
 {% block contenu %}
     {{ form_start(form) }}
+        {{ form_errors(form) }}
         {{ form(form) }}
-    {{ form(form) }}
-    <input type="submit" value="commander">
+        {{ form_row(form.continuer, {'attr': {'class' : 'waves-effect waves-light btn amber accent-4'}}) }}
     {{ form_end(form) }}
 {% endblock %}
 

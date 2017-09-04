@@ -23,15 +23,16 @@ class BookingStep2Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',      TextType::class)
-            ->add('prenom', TextareaType::class)
+            ->add('nom',      TextType::class, array('label' => 'Nom'))
+            ->add('prenom', TextareaType::class, array('label' => 'Prénom'))
             ->add('dateNaissance',      DateType::class, [
                 'widget'=> 'single_text',
                 'html5'=> false,
-                'attr' =>['class' => 'datepicker']
+                'attr' =>['class' => 'datepicker'],
+                'label' => 'Date de naissance'
                 ])
-            ->add('pays',      CountryType::class)
-            ->add('reduit', CheckboxType::class)
+            ->add('pays',      CountryType::class, array('label' => 'Pays'))
+            ->add('reduit', CheckboxType::class, array('required' => false, 'label' => 'Tarif réduit'))
         ;
     }
 
