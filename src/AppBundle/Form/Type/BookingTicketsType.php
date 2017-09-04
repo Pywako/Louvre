@@ -23,7 +23,9 @@ class BookingTicketsType extends AbstractType
             ->add('tickets',      CollectionType::class, array(
                 'entry_type' => BookingStep2Type::class
             ))
-            ->add('continuer', SubmitType::class );
+            ->add('continuer', SubmitType::class, array(
+                'attr' => array('class' => 'waves-effect waves-light btn amber accent-4')
+            ));
             ;
         ;
     }
