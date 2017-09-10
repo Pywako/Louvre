@@ -11,7 +11,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\BookingStep1Type;
-use AppBundle\Form\Type\BookingTicketsType;
 use AppBundle\Form\Type\BookingStep2Type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +31,7 @@ class BookingController extends Controller
     /**
      * @Route("/order", name="step1")
      */
-    public function orderAction(Request $request)
+    public function step1Action(Request $request)
     {
         $booking = new Booking();
         $form = $this->createForm(BookingStep1Type::class, $booking);
@@ -43,7 +42,7 @@ class BookingController extends Controller
             $request->getSession()->set( 'booking', $booking);
             return $this->redirectToRoute('step2');
         }
-        return $this->render(':booking:order.html.twig', array(
+        return $this->render(':booking:step1.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -51,16 +50,27 @@ class BookingController extends Controller
     /**
      * @Route("/data", name="step2")
      */
-    public function dataAction(Request $request)
+    public function step2Action(Request $request)
     {
         $booking = $request->getSession()->get('booking');
-        $form = $this->createForm(BookingTicketsType::class, $booking);
-        $booking->addTicket(new Ticket());
-        $booking->addTicket(new Ticket());
-        $booking->addTicket(new Ticket());
 
+
+        $nb_ticket = $booking->getNbTicket();
+        // Compter le nombre de formulaire ticket affichés
+
+        $nbForm =  $booking->getTickets()->count();
+        $nbFormAGenerer = $nb_ticket - $nbForm;
+        // Afficher le nombre de formulaire manquant
+        if($nbFormAGenerer > 0)
+        {
+            for($i=0; $i<$nbFormAGenerer; $i++){
+                $booking->addTicket(new Ticket());
+            }
+        }
+
+        $form = $this->createForm(BookingStep2Type::class, $booking);
         dump($booking);
-        return $this->render(':booking:data.html.twig', array(
+        return $this->render(':booking:step2.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -68,10 +78,9 @@ class BookingController extends Controller
     /**
      * @Route("/buy", name="step3")
      */
-    public function buyAction()
+    public function step3Action()
     {
-        return $this->render(':booking:buy.html.twig', array(
-
+        return $this->render(':booking:step3.html.twig', array(
         ));
     }
 

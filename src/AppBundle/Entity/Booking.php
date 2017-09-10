@@ -25,6 +25,7 @@ class Booking
 
     /**
      * @var string
+     * @Assert\Email(checkMX=true)
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
