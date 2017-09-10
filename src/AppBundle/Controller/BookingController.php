@@ -18,6 +18,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BookingController extends Controller
 {
+    var $booking;
+    var $nb_ticket;
+    var $nb_form;
+
     /**
      * @param Request $request
      * @Route("/", name="homepage")
@@ -29,7 +33,7 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/order", name="step1")
+     * @Route("/step1", name="step1")
      */
     public function step1Action(Request $request)
     {
@@ -48,35 +52,37 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/data", name="step2")
+     * @Route("/step2", name="step2")
      */
     public function step2Action(Request $request)
     {
-        $booking = $request->getSession()->get('booking');
+        $this->booking = $request->getSession()->get('booking');
 
+        // Compter le nombre de formulaire ticket affichés et nombre de ticket à générer
+        $this->count_form_ticket();
 
-        $nb_ticket = $booking->getNbTicket();
-        // Compter le nombre de formulaire ticket affichés
-
-        $nbForm =  $booking->getTickets()->count();
-        $nbFormAGenerer = $nb_ticket - $nbForm;
-        // Afficher le nombre de formulaire manquant
-        if($nbFormAGenerer > 0)
+        // tant que le nombre de formulaire affiché ne correspond pas au nombre de ticket à générer
+        while($this->nb_ticket != $this->nb_form)
         {
-            for($i=0; $i<$nbFormAGenerer; $i++){
-                $booking->addTicket(new Ticket());
-            }
+            // gestion ajout/suppression formulaire affiché
+            $this->generate_form_ticket();
         }
 
-        $form = $this->createForm(BookingStep2Type::class, $booking);
-        dump($booking);
+        $form = $this->createForm(BookingStep2Type::class, $this->booking);
+
+        /*
+        if ($form->isSubmitted() && $form->isValid()) {
+            $request->getSession()->set( 'booking', $booking);
+            return $this->redirectToRoute('step3');
+        }*/
+
         return $this->render(':booking:step2.html.twig', array(
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/buy", name="step3")
+     * @Route("/step3", name="step3")
      */
     public function step3Action()
     {
@@ -102,5 +108,26 @@ class BookingController extends Controller
         );
 
         return $url;
+    }
+    public function count_form_ticket()
+    {
+        $this->nb_ticket = $this->booking->getNbTicket();
+        $this->nb_form =  $this->booking->getTickets()->count();
+    }
+
+    public function generate_form_ticket()
+    {
+        if($this->nb_ticket != $this->nb_form) {
+            if($this->nb_ticket > $this->nb_form)
+            {
+                $this->booking->addTicket(new Ticket());
+            }
+            else{
+                $ticket_array = $this->booking->getTickets();
+                unset($ticket_array[$this->nb_form]);
+            }
+            $this->count_form_ticket();
+            $this->generate_form_ticket();
+        }
     }
 }
