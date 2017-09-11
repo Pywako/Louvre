@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as BookingAssert;
 
 /**
  * Booking
@@ -25,7 +26,9 @@ class Booking
 
     /**
      * @var string
-     * @Assert\Email(checkMX=true)
+     * @Assert\Email(
+     *     message = "Aucun serveur mail n'a été trouvé pour ce domaine",
+     *     checkMX=true)
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
@@ -33,13 +36,18 @@ class Booking
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
+     * @Assert\Range(
+     *     min = "today",
+     *     max = "next year UTC"
+     * )
      * @ORM\Column(name="dateVisit", type="date")
      */
     private $dateVisit;
 
     /**
      * @var \DateTime
+     * @Assert\DateTime()
      *
      * @ORM\Column(name="dateResa", type="datetime")
      */
@@ -47,7 +55,10 @@ class Booking
 
     /**
      * @var int
-     *
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10
+     * )
      * @ORM\Column(name="nbTicket", type="smallint")
      */
     private $nbTicket;
@@ -61,7 +72,10 @@ class Booking
 
     /**
      * @var int
-     *
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 2
+     * )
      * @ORM\Column(name="type", type="smallint", length=255)
      */
     private $type;

@@ -2,8 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Ticket
@@ -24,48 +25,58 @@ class Ticket
 
     /**
      * @var string
-     *
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "Nom invalide"
+     *     )
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\Type(
+     *     type = "string",
+     *     message = "Prénom invalide"
+     *     )
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
 
     /**
      * @var bool
-     *
+     * @Assert\Type("bool")
      * @ORM\Column(name="reduit", type="boolean")
      */
     private $reduit;
 
     /**
      * @var int
-     *
+     * @Assert\Range(
+     *     min = 0,
+     *     max = 300
+     * )
      * @ORM\Column(name="prix", type="smallint")
      */
     private $prix;
 
     /**
      * @var string
-     *
+     * @Assert\Country()
      * @ORM\Column(name="pays", type="string")
      */
     private $pays;
 
     /**
      * @var Booking
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Booking", inversedBy="tickets")
      */
     private $booking;
