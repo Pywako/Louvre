@@ -12,17 +12,25 @@
     </nav>
 {% endblock %}
 {% block image %}
-    <img src="{{ asset('images/pyramide.jpg') }}" id="banniere">
+    <img src="{{ asset('images/pyramide2.jpg') }}" id="banniere">
 {% endblock %}
 
 {% block etape %}Coordonnées{% endblock %}
 {% block contenu %}
     {{ form_start(form) }}
+    {{ form_label(form.tickets) }}
         {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        <div class="row center">
-            {{ form_row(form.continuer) }}
-        </div>
+        <ul>
+            {% for ticketField in form.tickets %}
+                <li>
+                    {{ form_errors(ticketField) }}
+                    {{ form_widget(ticketField) }}
+                </li>
+            {% endfor %}
+        </ul>
+    <div class="row center">
+        {{ form_row(form.continuer, {'attr': {'class' : 'waves-effect waves-light btn amber accent-4'}}) }}
+    </div>
     {{ form_end(form) }}
 {% endblock %}
 
