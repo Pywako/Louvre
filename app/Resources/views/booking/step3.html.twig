@@ -5,7 +5,7 @@
         <div class="nav-wrapper light-blue">
             <div class="col s12">
                 <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
-                <a href="{{ path('step1' }}" class="breadcrumb">Commander</a>
+                <a href="{{ path('step1') }}" class="breadcrumb">Commander</a>
                 <a href="{{ path('step2') }}" class="breadcrumb">Coordonnés</a>
                 <a href="#" class="breadcrumb">Paiement</a>
             </div>
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block image %}
-    <img src="{{ asset('images/pyramide.jpg') }}" id="banniere">
+    <img src="{{ asset('images/pyramide2.jpg') }}" id="banniere">
 {% endblock %}
 
 {% block etape %}Paiement{% endblock %}
@@ -22,9 +22,37 @@
     <div class="row">
         <form class="col s12">
             <div class="row center">
+                <h2>Récapitulatif de la commande</h2>
+                <table class="highlight centered responsive-table">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Type de billet</th>
+                        <th>Tarif</th>
+                        <th>Prix</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
                 <h2>Paiement</h2>
-                <p class="center-align">Stripe</p>
-                <a class="waves-effect waves-light btn amber accent-4" href="{{ path('confirm') }}">Acheter</a>
+                <<form action="" method="POST">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_KhvkWrNxk2SVS7TpbOVxbynv"
+                            data-amount="{{ 16 * 100 }}"
+                            data-name="Demo Site"
+                            data-description="Widget"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-zip-code="true"
+                            data-currency="eur">
+                    </script>
+                </form>
             </div>
         </form>
     </div>
