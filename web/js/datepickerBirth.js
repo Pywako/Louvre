@@ -16,9 +16,9 @@ var day = now.getDate();
 var hours = now.getHours();
 var minutes = now.getSeconds();
 
-$('.datepicker').pickadate({
+$('.datepicker2').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 2, // Creates a dropdown of 15 years to control year
+    selectYears: 15, // Creates a dropdown of 15 years to control year
     labelMonthNext: 'Mois suivant',
     labelMonthPrev: 'Mois précédent',
     labelMonthSelect: 'Selectionner le mois',
