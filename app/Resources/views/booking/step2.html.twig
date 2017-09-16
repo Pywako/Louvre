@@ -34,6 +34,7 @@
     {{ form_end(form) }}
 {% endblock %}
 
-{% block datepicker %}
+{% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('js/datepickerBirth.js') }}"></script>
 {% endblock %}
