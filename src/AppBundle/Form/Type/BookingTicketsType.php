@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pywako
- * Date: 21/08/2017
- * Time: 14:41
- */
 
 namespace AppBundle\Form\Type;
 
@@ -26,10 +20,11 @@ class BookingTicketsType extends AbstractType
             ->add('nom',      TextType::class, array('label' => 'Nom'))
             ->add('prenom', TextareaType::class, array('label' => 'Prénom'))
             ->add('dateNaissance',      DateType::class, [
-                'widget'=> 'choice',
+                'widget'=> 'single_text',
                 'html5'=> true,
                 'attr' =>['class' => 'datepicker'],
-                'label' => 'Date de naissance'
+                'label' => 'Date de naissance',
+                'format' => 'dd/MM/yyyy'
                 ])
             ->add('pays',      CountryType::class, array('label' => 'Pays', 'placeholder' => 'Choisissez un pays'))
             ->add('reduit', CheckboxType::class, array('required' => false, 'label' => 'Tarif réduit'))

@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pywako
- * Date: 21/08/2017
- * Time: 14:41
- */
 
 namespace AppBundle\Form\Type;
 
 
+use AppBundle\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -34,8 +28,8 @@ class BookingStep1Type extends AbstractType
             ->add('nbTicket',       IntegerType::class)
             ->add('type',      ChoiceType::class, array(
                 'choices' =>array(
-                    'Journée' => 1,
-                    'Demi-journée' => 2,
+                    'Journée' => Booking::TYPE_DAY,
+                    'Demi-journée' => Booking::TYPE_HALF_DAY,
                 )))
             ->add('continuer', SubmitType::class );
         ;
