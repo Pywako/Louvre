@@ -20,7 +20,7 @@
 {% block etape %}Paiement{% endblock %}
 {% block contenu %}
     <div class="row">
-        <form class="col s12">
+        <div class="col s12">
             <div class="row center">
                 <h2>Récapitulatif de la commande</h2>
 
@@ -84,11 +84,11 @@
                             data-description="Billetterie du muséee du Louvre"
                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                             data-locale="auto"
-                            data-zip-code="true"
+                            data-zip-code="false"
                             data-currency="eur">
                     </script>
                 </form>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}

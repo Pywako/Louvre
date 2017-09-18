@@ -83,11 +83,11 @@ class BookingController extends Controller
         $total      = $request->getSession()->get('total');
 
         if($request->isMethod('POST')){
-            dump($request->get('stripeToken'));
+
             try{
                 $token = $request->get('stripeToken');
                 $request->getSession()->set('test', 'test');
-                \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+                Stripe::setApiKey($this->getParameter('stripe_secret_key'));
                 Charge::create(array(
                     "amount" => $total * 100,
                     "currency" => "eur",
@@ -95,6 +95,7 @@ class BookingController extends Controller
                     "description" => "First test charge!"
                 ));
                 // Entrer en bdd
+                dump($booking);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($booking);
                 $em->flush();
