@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pywako
- * Date: 14/08/2017
- * Time: 17:59
- */
 
 namespace AppBundle\Controller;
 
@@ -12,19 +6,25 @@ use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\BookingStep1Type;
 use AppBundle\Form\Type\BookingStep2Type;
+use AppBundle\Manager\BookingManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Stripe\Charge;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 class BookingController extends Controller
 {
-    var $booking;
-    var $nb_ticket;
-    var $nb_form;
+    public function __construct()
+    {
+        $this->manager = new BookingManager();
+    }
 
     /**
      * @param Request $request
      * @Route("/", name="homepage")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -53,41 +53,18 @@ class BookingController extends Controller
     /**
      * @Route("/step2", name="step2")
      */
-    public function step2Action(Request $request)
+    public function step2Action(Request $request, BookingManager $bookingManager)
     {
-        $this->booking = $request->getSession()->get('booking');
+        $booking = $request->getSession()->get('booking');
+        $manager = $bookingManager;
+        $manager->generateTicketForm($booking);
 
-        // Compter le nombre de formulaire ticket affichés et nombre de ticket à générer
-        $this->count_form_ticket();
-
-        // tant que le nombre de formulaire affiché ne correspond pas au nombre de ticket à générer
-        while ($this->nb_ticket != $this->nb_form) {
-            // gestion ajout/suppression formulaire affiché
-            $this->generate_form_ticket();
-        }
-
-        $form = $this->createForm(BookingStep2Type::class, $this->booking);
+        $form = $this->createForm(BookingStep2Type::class, $booking);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Génération date de réservation
-            $this->booking->setDateResa(date('Y-m-d'));
-
-            //Génération code de réservation
-            $this->booking->setCode(md5(uniqid(rand(), true)));
-
-            //Entrée des tickets dans l'array tickets de l'objet booking
-            $tickets = $this->booking->getTickets();
-            foreach ($tickets as $key => $ticket) {
-                dump($ticket);
-
-                $prix = $this->generate_price($this->booking->getType(), $ticket->getDateNaissance()->getDate(), $ticket->getReduit());
-                $ticket->setPrix($prix);
-                $tickets[$key] = $ticket;
-            }
-            //Stockage en session des tickets
-            $request->getSession()->set('booking', $this->booking);
-
-
+            $manager->fillingTicket($booking);
+            $manager->generateTicket($request, $booking);
             return $this->redirectToRoute('step3');
         }
 
@@ -99,13 +76,47 @@ class BookingController extends Controller
     /**
      * @Route("/step3", name="step3")
      */
-    public function step3Action(Request $request)
+    public function step3Action(Request $request, BookingManager $bookingManager)
     {
-        $this->booking = $request->getSession()->get('booking');
+        $manager    = $bookingManager;
+        $booking    = $request->getSession()->get('booking');
+        $total      = $request->getSession()->get('total');
 
+        if($request->isMethod('POST')){
+            dump($request->get('stripeToken'));
+            try{
+                $token = $request->get('stripeToken');
+                $request->getSession()->set('test', 'test');
+                \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+                Charge::create(array(
+                    "amount" => $total * 100,
+                    "currency" => "eur",
+                    "source" => $token,
+                    "description" => "First test charge!"
+                ));
+                // Entrer en bdd
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($booking);
+                $em->flush();
+                // Envoi email
+
+                // Vider session
+                $manager->emptySession();
+                // Redirecto message confirmation
+                $this->addFlash('success', 'Commande effectuée');
+                return $this->redirectToRoute('confirm');
+            }
+            catch(\Exception $e){
+                $this->addFlash('error', 'Il y a une erreur');
+                dump($e);
+            }
+        }
 
         return $this->render(':booking:step3.html.twig', array(
-            'tickets' => $this->booking->getTickets()
+            'stripe_public_key' => $this->getParameter('stripe_public_key'),
+            'tickets'   => $booking->getTickets(),
+            'booking'   => $booking,
+            'total'     => $total
         ));
     }
 
@@ -115,74 +126,5 @@ class BookingController extends Controller
     public function confirmAction()
     {
         return $this->render(':booking:confirm.html.twig', array());
-    }
-
-    public function showAction($slug)
-    {
-        $url = $this->generateUrl(
-            'homepage',
-            array('slug' => 'homepage')
-        );
-
-        return $url;
-    }
-
-    public function count_form_ticket()
-    {
-        $this->nb_ticket = $this->booking->getNbTicket();
-        $this->nb_form = $this->booking->getTickets()->count();
-    }
-
-    public function generate_form_ticket()
-    {
-        if ($this->nb_ticket != $this->nb_form) {
-            if ($this->nb_ticket > $this->nb_form) {
-                $this->booking->addTicket(new Ticket());
-            } else {
-                $ticket_array = $this->booking->getTickets();
-                unset($ticket_array[$this->nb_form]);
-            }
-            $this->count_form_ticket();
-            $this->generate_form_ticket();
-        }
-    }
-
-    public function generate_price($type, $dateNaissance, $reduit)
-    {
-        $prixBebe = 0;
-        $prixEnfant = 8;
-        $prixReduit = 10;
-        $prixSenior = 12;
-        $prixStandard = 16;
-        $coeficient = 0.5;
-        $date = date('Y-m-d');
-
-        // Calcul de l'age du client
-        $age = $date - $dateNaissance;
-        // Attribution du prix du billet en fonction de l'âge
-        if ($age > 4) {
-            if ($age > 12) {
-                if ($age > 60) {
-                    $prix = $prixSenior;
-                } else {
-                    $prix = $prixStandard;
-                }
-            } else {
-                $prix = $prixEnfant;
-            }
-        } else {
-            $prix = $prixBebe;
-        }
-
-        // tarif réduit
-        if ($reduit == true) {
-            $prix = $prixReduit;
-        }
-
-        if ($type == 2) {
-            $prix = $prix * $coeficient;
-        }
-
-        return $prix;
     }
 }
