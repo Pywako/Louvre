@@ -20,6 +20,9 @@
     Bienvenue sur la platform de réservation de billet du musée du Louvre.
     </h3>
     <div class="row center">
+        <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step1') }}">Commander</a>
+    </div>
+    <div class="row center">
         <h4>Les ouvertures/fermeture du musée:</h4>
         <ul>
             <li>Lundi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche</li>
@@ -39,8 +42,5 @@
             <li>Réduit (étudiant, employé du musée, service culturels ...) : 10€</li>
             <li>Demi journée ( visite à partir de 14h) : demi tarif</li>
         </ul>
-    </div>
-    <div class="row center">
-        <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step1') }}">Commander</a>
     </div>
 {% endblock %}
