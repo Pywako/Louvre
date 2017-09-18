@@ -23,30 +23,65 @@
         <form class="col s12">
             <div class="row center">
                 <h2>Récapitulatif de la commande</h2>
+
+                <div >
+                    <p>Date de visite : {{ booking.dateVisit|date("d/m/Y") }}</p>
+                    <p>Type de billet :
+                        {% if booking.type == 1 %}
+                            Billet journée
+                        {% elseif booking.type == 2 %}
+                            Billet Demi journée
+                        {% endif %}
+                    </p>
+                </div>
+
                 <table class="highlight centered responsive-table">
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Type de billet</th>
-                        <th>Tarif</th>
+                        <th>Prenom</th>
+                        <th>Tarif réduit</th>
                         <th>Prix</th>
                     </tr>
                     </thead>
-
                     <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
+                    {% if tickets %}
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td>{{ ticket.nom }}</td>
+                                <td>{{ ticket.prenom }}</td>
+                                <td>{% if ticket.reduit == true %}
+                                        Oui
+                                    {% elseif ticket.reduit == false %}
+                                        Non
+                                    {% endif %}
+                                </td>
+                                <td>{{ ticket.prix }} €</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="center">Nombre total de billet : {{ booking.nbTicket }}</td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td  class="center">Prix total : {{ total }} €</td>
+                    </tr>
+                    </tfoot>
                 </table>
                 <h2>Paiement</h2>
-                <<form action="" method="POST">
+                <form action="" method="POST">
                     <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="pk_test_KhvkWrNxk2SVS7TpbOVxbynv"
-                            data-amount="{{ 16 * 100 }}"
-                            data-name="Demo Site"
-                            data-description="Widget"
+                            data-amount="{{ total * 100 }}"
+                            data-email ="{{ booking.email }}"
+                            data-name="Paiment"
+                            data-description="Billetterie du muséee du Louvre"
                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                             data-locale="auto"
                             data-zip-code="true"
