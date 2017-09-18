@@ -15,6 +15,8 @@ use AppBundle\Validator\Constraints as BookingAssert;
  */
 class Booking
 {
+    const TYPE_DAY      = 1;
+    const TYPE_HALF_DAY = 2;
     /**
      * @var int
      *
@@ -29,7 +31,7 @@ class Booking
      * @Assert\Email(
      *     message = "Aucun serveur mail n'a été trouvé pour ce domaine",
      *     checkMX=true)
-     *
+     * @
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -72,10 +74,7 @@ class Booking
 
     /**
      * @var int
-     * @Assert\Range(
-     *     min = 1,
-     *     max = 2
-     * )
+     * @Assert\NotNull()
      * @ORM\Column(name="type", type="smallint", length=255)
      */
     private $type;

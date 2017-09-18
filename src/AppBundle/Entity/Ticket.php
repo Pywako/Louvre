@@ -14,6 +14,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Ticket
 {
+    const TARIF_BABY        = 0.00;
+    const TARIF_CHILD       = 8.00;
+    const TARIF_HALF        = 10.00;
+    const TARIF_SENIOR      = 12.00;
+    const TARIF_STANDARD    = 16.00;
+    const COEFICIENT_HALF_DAY = 0.5;
     /**
      * @var int
      *
@@ -45,7 +51,7 @@ class Ticket
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
+     *
      * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
