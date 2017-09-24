@@ -81,7 +81,7 @@ class Booking
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="booking", cascade="persist")
      * @Assert\Valid()
      */
     private $tickets;
@@ -257,7 +257,7 @@ class Booking
     public function addTicket(\AppBundle\Entity\Ticket $ticket)
     {
         $this->tickets[] = $ticket;
-
+        $ticket->setBooking($this);
         return $this;
     }
 
