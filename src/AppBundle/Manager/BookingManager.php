@@ -4,6 +4,9 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
+use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class BookingManager
@@ -12,9 +15,10 @@ class BookingManager
     private $nbForm;
     private $booking;
 
-    public function __construct()
+    public function __construct(RequestStack $requestStack, SessionInterface $session)
     {
-
+        $this->request = $requestStack->getCurrentRequest();
+        $this->session = $session;
     }
 
     public function getBooking()
@@ -59,7 +63,7 @@ class BookingManager
 
     }
 
-    public function generateTicket($request, $booking)
+    public function generateTicket($booking)
     {
         $total = 0.00;
         $tickets = $booking->getTickets();
@@ -70,8 +74,7 @@ class BookingManager
             $tickets[$key] = $ticket;
         }
         //Stockage en session des tickets
-        $request->getSession()->set('booking', $booking);
-        $request->getSession()->set('total', $total);
+        $this->request->getSession()->set('total', $total);
     }
 
     private function generatePrice($type, $dateNaissance, $reduit)
@@ -80,28 +83,24 @@ class BookingManager
 
         // Calcul de l'age du client
         $age = $date->diff($dateNaissance)->y;
+        $prix = null;
 
-        // Attribution du prix du billet en fonction de l'âge
-        if ($age > 4) {
-            if ($age > 12) {
-                if ($age > 60) {
-                    $prix = Ticket::TARIF_SENIOR;
-                } else {
-                    $prix = Ticket::TARIF_STANDARD;
-                }
-            } else {
-                $prix = Ticket::TARIF_CHILD;
-            }
-        } else {
+        if ($age < 4) {
             $prix = Ticket::TARIF_BABY;
+        } elseif ($age < 12) {
+            $prix = Ticket::TARIF_CHILD;
+        } elseif ($age < 60) {
+            $prix = Ticket::TARIF_STANDARD;
+        } elseif ($age >= 60) {
+            $prix = Ticket::TARIF_SENIOR;
         }
 
         // tarif réduit
-        if ($age > 12 && $reduit == true) {
+        if ($age >= 12 && $reduit == true) {
             $prix = Ticket::TARIF_HALF;
         }
 
-        if ($type == Booking::TYPE_HALF_DAY && $age > 4) {
+        if ($type == Booking::TYPE_HALF_DAY && $age >= 4) {
             $prix = $prix * Ticket::COEFICIENT_HALF_DAY;
         }
 
