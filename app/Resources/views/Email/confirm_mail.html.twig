@@ -1,0 +1,14 @@
+<h3>Commande effectuée</h3>
+<img src="{{ asset('images/logo.png') }}">
+Merci pour votre achat, voici le récapitulatif de votre commande :
+Nom : {{ booking.email }}
+Type de billet :
+{% if booking.type == 1 %}
+    Billet journée
+{% elseif booking.type == 2 %}
+    Billet Demi journée
+{% endif %}
+Date de visite : {{ booking.dateVisit|date("d/m/Y") }}
+Nombre de billets acheté : {{ booking.nbTicket }}
+Total :
+
