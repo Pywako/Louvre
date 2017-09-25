@@ -12,6 +12,7 @@ use AppBundle\Validator\Constraints as BookingAssert;
  *
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookingRepository")
+ * @BookingAssert\ConstraintHalfDayBooking()
  */
 class Booking
 {
@@ -43,6 +44,8 @@ class Booking
      *     min = "today",
      *     max = "next year UTC"
      * )
+     * @BookingAssert\ConstraintNotTuesdaySunday()
+     * @BookingAssert\ConstraintHoliday()
      * @ORM\Column(name="dateVisit", type="date")
      */
     private $dateVisit;
@@ -279,5 +282,11 @@ class Booking
     public function getTickets()
     {
         return $this->tickets;
+    }
+
+    public function getAlltickets()
+    {
+        $nbAllTickets = "" ;
+        return $nbAllTickets;
     }
 }
