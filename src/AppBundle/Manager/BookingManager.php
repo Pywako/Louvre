@@ -4,7 +4,6 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
-use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -52,7 +51,6 @@ class BookingManager
         }
     }
 
-
     public function fillingTicket($booking)
     {
         // Génération date de réservation
@@ -74,7 +72,7 @@ class BookingManager
             $tickets[$key] = $ticket;
         }
         //Stockage en session des tickets
-        $this->request->getSession()->set('total', $total);
+        $booking->{"total"} = $total;
     }
 
     private function generatePrice($type, $dateNaissance, $reduit)
@@ -110,10 +108,5 @@ class BookingManager
     public function emptySession()
     {
         session_destroy();
-    }
-
-    public function writeInBdd()
-    {
-
     }
 }

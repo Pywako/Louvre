@@ -69,7 +69,7 @@
                     </tr>
                     <tr>
                         <td colspan="3"></td>
-                        <td  class="center">Prix total : {{ total }} €</td>
+                        <td  class="center">Prix total : {{ booking.total }} €</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -78,7 +78,7 @@
                     <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="{{ stripe_public_key }}"
-                            data-amount="{{ total * 100 }}"
+                            data-amount="{{ booking.total * 100 }}"
                             data-email ="{{ booking.email }}"
                             data-name="Paiment"
                             data-description="Billetterie du muséee du Louvre"

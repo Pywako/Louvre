@@ -7,6 +7,7 @@ use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\BookingStep1Type;
 use AppBundle\Form\Type\BookingStep2Type;
 use AppBundle\Manager\BookingManager;
+use AppBundle\Manager\MailManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Stripe\Charge;
 use Stripe\Stripe;
@@ -71,11 +72,12 @@ class BookingController extends Controller
     /**
      * @Route("/step3", name="step3")
      */
-    public function step3Action(Request $request, BookingManager $bookingManager)
+    public function step3Action(Request $request, BookingManager $bookingManager, MailManager $mailManager)
     {
         $manager    = $bookingManager;
+        $mail       = $mailManager;
         $booking    = $request->getSession()->get('booking');
-        $total      = $request->getSession()->get('total');
+        $total      = $booking->total;
 
         if($request->isMethod('POST')){
 
@@ -87,14 +89,15 @@ class BookingController extends Controller
                     "amount" => $total * 100,
                     "currency" => "eur",
                     "source" => $token,
-                    "description" => "First test charge!"
+                    "description" => "Buy tickets"
                 ));
                 // Entrer en bdd
-                dump($booking);
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($booking);
                 $em->flush();
                 // Envoi email
+                $mail->sendConfirmMessage($booking);
 
                 // Vider session
                 $manager->emptySession();
@@ -133,8 +136,7 @@ class BookingController extends Controller
         return $this->render(':booking:step3.html.twig', array(
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
             'tickets'   => $booking->getTickets(),
-            'booking'   => $booking,
-            'total'     => $total
+            'booking'   => $booking
         ));
     }
 
