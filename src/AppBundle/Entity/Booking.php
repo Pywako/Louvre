@@ -13,6 +13,7 @@ use AppBundle\Validator\Constraints as BookingAssert;
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookingRepository")
  * @BookingAssert\ConstraintHalfDayBooking()
+ * @BookingAssert\ConstraintFull()
  */
 class Booking
 {
