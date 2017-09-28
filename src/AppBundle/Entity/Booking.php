@@ -284,9 +284,13 @@ class Booking
         return $this->tickets;
     }
 
-    public function getAlltickets()
+    public function getTotalPrice()
     {
-        $nbAllTickets = "" ;
-        return $nbAllTickets;
+        $price = 0;
+        foreach ($this->getTickets() as $ticket)
+        {
+            $price += $ticket->getPrix();
+        }
+        return $price;
     }
 }
