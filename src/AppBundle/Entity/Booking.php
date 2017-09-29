@@ -33,7 +33,7 @@ class Booking
      * @Assert\Email(
      *     message = "Aucun serveur mail n'a été trouvé pour ce domaine",
      *     checkMX=true)
-     * @
+     * @Assert\NotNull()
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -47,6 +47,7 @@ class Booking
      * )
      * @BookingAssert\ConstraintNotTuesdaySunday()
      * @BookingAssert\ConstraintHoliday()
+     * @Assert\NotNull()
      * @ORM\Column(name="dateVisit", type="date")
      */
     private $dateVisit;
@@ -65,6 +66,7 @@ class Booking
      *     min = 1,
      *     max = 10
      * )
+     * @Assert\NotNull()
      * @ORM\Column(name="nbTicket", type="smallint")
      */
     private $nbTicket;
@@ -86,6 +88,7 @@ class Booking
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ticket", mappedBy="booking", cascade="persist")
+     *
      * @Assert\Valid()
      */
     private $tickets;

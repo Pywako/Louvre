@@ -35,6 +35,7 @@ class Ticket
      *     type = "string",
      *     message = "Nom invalide"
      *     )
+     * @Assert\NotNull()
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
@@ -45,13 +46,14 @@ class Ticket
      *     type = "string",
      *     message = "Prénom invalide"
      *     )
+     * @Assert\NotNull()
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotNull()
      * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
@@ -59,6 +61,7 @@ class Ticket
     /**
      * @var bool
      * @Assert\Type("bool")
+     *
      * @ORM\Column(name="reduit", type="boolean")
      */
     private $reduit;
@@ -69,6 +72,7 @@ class Ticket
      *     min = 0,
      *     max = 300
      * )
+     *
      * @ORM\Column(name="prix", type="smallint")
      */
     private $prix;
@@ -76,6 +80,7 @@ class Ticket
     /**
      * @var string
      * @Assert\Country()
+     * @Assert\NotNull()
      * @ORM\Column(name="pays", type="string")
      */
     private $pays;

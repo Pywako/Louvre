@@ -98,7 +98,7 @@ class BookingController extends Controller
             } catch (\Stripe\Error\Base $e) {
                 // Display a very generic error to the user, and maybe send
                 // yourself an email
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 // Something else happened, completely unrelated to Stripe
             }
         }
