@@ -26,7 +26,6 @@ class ConstraintFullValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $request = $this->requestStack->getCurrentRequest();
         $dateVisit = $value->getDateVisit();
 
         $dateVisitTickets = $this->em
@@ -41,7 +40,7 @@ class ConstraintFullValidator extends ConstraintValidator
         $nbTotalTicket = $nbTicketBought + $value->getNbTicket();
 
         // si nb de billet à acheter + nb total > 1000 billets ->erreur
-        if ($nbTotalTicket > 1000) {
+        if ($nbTotalTicket > Booking::FULL) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $dateVisit->format('d-m-Y'))
                 ->addViolation();

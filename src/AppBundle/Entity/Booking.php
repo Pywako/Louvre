@@ -19,6 +19,7 @@ class Booking
 {
     const TYPE_DAY      = 1;
     const TYPE_HALF_DAY = 2;
+    const FULL          = 5;
     /**
      * @var int
      *
