@@ -4,6 +4,7 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,8 +12,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BookingManager
 {
-    private $nbTicket;
-    private $nbForm;
     private $booking;
     private $request;
     private $session;
@@ -42,24 +41,21 @@ class BookingManager
         return $this->booking->getTotalPrice();
     }
 
-    private function countTicketForm()
-    {
-        $this->nbTicket = $this->booking->getNbTicket();
-        $this->nbForm = $this->booking->getTickets()->count();
-    }
-
     public function generateTicketForm()
     {
-        $this->countTicketForm();
+        $nbTicket = $this->booking->getNbTicket();
 
-        while ($this->nbTicket != $this->nbForm) {
-            if ($this->nbTicket > $this->nbForm) {
+        /**
+         * @var $ticketsCollection ArrayCollection
+         */
+        $ticketsCollection = $this->booking->getTickets();
+        while ($nbTicket != $ticketsCollection->count()) {
+            if ($nbTicket > $ticketsCollection->count()) {
+
                 $this->booking->addTicket(new Ticket());
             } else {
-                $ticket_array = $this->booking->getTickets();
-                unset($ticket_array[$this->nbForm]);
+                $ticketsCollection->remove($ticketsCollection->last());
             }
-            $this->countTicketForm();
         }
     }
 
@@ -73,13 +69,12 @@ class BookingManager
 
     }
 
-    public function generateTicket()
+    public function computeTicketPrice()
     {
         $tickets = $this->booking->getTickets();
         foreach ($tickets as $key => $ticket) {
             $price = $this->generatePrice($this->booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
             $ticket->setPrix($price);
-            $tickets[$key] = $ticket;
         }
     }
 
@@ -102,7 +97,8 @@ class BookingManager
         }
 
         // tarif réduit
-        if ($age >= 12 && $reduit == true) {
+
+        if ($age >= 12 && $reduit === true) {
             $prix = Ticket::TARIF_HALF;
         }
 
@@ -121,6 +117,6 @@ class BookingManager
 
     public function emptySession()
     {
-        session_destroy();
+        $this->session->invalidate();
     }
 }
