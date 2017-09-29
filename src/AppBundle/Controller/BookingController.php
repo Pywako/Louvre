@@ -73,34 +73,21 @@ class BookingController extends Controller
         $booking = $bookingManager->getBooking();
 
         if ($request->isMethod('POST')) {
-            try {
-                $stripe_secret_key = $this->getParameter('stripe_secret_key');
-                $stripeManager->chargeBooking($stripe_secret_key);
+            $stripe_secret_key = $this->getParameter('stripe_secret_key');
+            if ($request->get('stripeToken')) {
+                try {
+                    $stripeManager->chargeBooking($stripe_secret_key);
+                    $bookingManager->registerBookingInBdd();
+                    $mailManager->sendConfirmMessage($booking);
 
-                $bookingManager->registerBookingInBdd();
-                $mailManager->sendConfirmMessage($booking);
+                    $bookingManager->emptySession();
+                    // Redirect to message confirmation
+                    $this->addFlash('success', 'Commande effectuée');
+                    return $this->redirectToRoute('confirm');
+                } catch (\Exception $e) {
+                    //erreur
+                }
 
-                $bookingManager->emptySession();
-                // Redirect to message confirmation
-                $this->addFlash('success', 'Commande effectuée');
-                return $this->redirectToRoute('confirm');
-
-            } catch (\Stripe\Error\Card $e) {
-                $stripeManager->generateStripeErrorCard($e);
-            } catch (\Stripe\Error\RateLimit $e) {
-                // Too many requests made to the API too quickly
-            } catch (\Stripe\Error\InvalidRequest $e) {
-                // Invalid parameters were supplied to Stripe's API
-            } catch (\Stripe\Error\Authentication $e) {
-                // Authentication with Stripe's API failed
-                // (maybe you changed API keys recently)
-            } catch (\Stripe\Error\ApiConnection $e) {
-                // Network communication with Stripe failed
-            } catch (\Stripe\Error\Base $e) {
-                // Display a very generic error to the user, and maybe send
-                // yourself an email
-            } catch (\Exception $e) {
-                // Something else happened, completely unrelated to Stripe
             }
         }
 
@@ -108,7 +95,7 @@ class BookingController extends Controller
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
             'tickets' => $booking->getTickets(),
             'booking' => $booking,
-            'total'   => $booking->getTotalPrice()
+            'total' => $booking->getTotalPrice()
         ));
     }
 

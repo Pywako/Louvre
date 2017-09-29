@@ -2,6 +2,7 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Booking;
 use Symfony\Component\Templating\EngineInterface;
 
 class MailManager
@@ -15,7 +16,7 @@ class MailManager
         $this->mailer = $mailer;
     }
 
-    public function sendConfirmMessage($booking)
+    public function sendConfirmMessage(Booking $booking)
     {
         $template = 'Email/confirm_mail.html.twig';
         $from = 'eticket@louvremusee.com';

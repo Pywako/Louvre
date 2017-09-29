@@ -4,22 +4,17 @@ namespace AppBundle\Manager;
 
 use Stripe\Charge;
 use Stripe\Stripe;
-use AppBundle\Entity\Booking;
-use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StripeManager
 {
     private $request;
-    private $session;
     private $bookingManager;
 
     public function __construct(
-        RequestStack $requestStack, SessionInterface $session, BookingManager $bookingManager)
+        RequestStack $requestStack, BookingManager $bookingManager)
     {
         $this->request = $requestStack->getCurrentRequest();
-        $this->session = $session;
         $this->bookingManager = $bookingManager;
     }
 
@@ -29,14 +24,14 @@ class StripeManager
         $this->request->getSession()->set('test', 'test');
         Stripe::setApiKey($stripe_secret_key);
         Charge::create(array(
-            "amount" => $this->bookingManager->getTotalPrice() * 100,
+            "amount" => $this->bookingManager->getBooking()->getTotalPrice() * 100,
             "currency" => "eur",
             "source" => $token,
             "description" => "Buy tickets"
         ));
     }
 
-    public function generateStripeErrorCard($e)
+    public function generateStripeErrorCard(\Exception $e)
     {
         // Since it's a decline, \Stripe\Error\Card will be caught
         $body = $e->getJsonBody();

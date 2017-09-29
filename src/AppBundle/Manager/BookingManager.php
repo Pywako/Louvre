@@ -5,7 +5,7 @@ namespace AppBundle\Manager;
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -17,7 +17,7 @@ class BookingManager
     private $session;
     private $em;
 
-    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManager $entityManager)
+    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManagerInterface $entityManager)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
@@ -34,11 +34,6 @@ class BookingManager
     {
         $this->request->getSession()->set('booking', $booking);
         $this->booking = $booking;
-    }
-
-    public function getTotalPrice()
-    {
-        return $this->booking->getTotalPrice();
     }
 
     public function generateTicketForm()
@@ -84,29 +79,29 @@ class BookingManager
 
         // Calcul de l'age du client
         $age = $date->diff($dateNaissance)->y;
-        $prix = null;
+        $price = null;
 
         if ($age < 4) {
-            $prix = Ticket::TARIF_BABY;
+            $price = Ticket::TARIF_BABY;
         } elseif ($age < 12) {
-            $prix = Ticket::TARIF_CHILD;
+            $price = Ticket::TARIF_CHILD;
         } elseif ($age < 60) {
-            $prix = Ticket::TARIF_STANDARD;
+            $price = Ticket::TARIF_STANDARD;
         } elseif ($age >= 60) {
-            $prix = Ticket::TARIF_SENIOR;
+            $price = Ticket::TARIF_SENIOR;
         }
 
         // tarif réduit
 
         if ($age >= 12 && $reduit === true) {
-            $prix = Ticket::TARIF_HALF;
+            $price = Ticket::TARIF_HALF;
         }
 
         if ($type == Booking::TYPE_HALF_DAY && $age >= 4) {
-            $prix = $prix * Ticket::COEFICIENT_HALF_DAY;
+            $price = $price * Ticket::COEFICIENT_HALF_DAY;
         }
 
-        return $prix;
+        return $price;
     }
 
     public function registerBookingInBdd()
