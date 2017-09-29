@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
 
+use AppBundle\Entity\Ticket;
 use AppBundle\Form\Type\BookingStep1Type;
 use AppBundle\Form\Type\BookingStep2Type;
 use AppBundle\Manager\BookingManager;
@@ -55,7 +56,7 @@ class BookingController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bookingManager->fillingTicket();
-            $bookingManager->generateTicket();
+            $bookingManager->computeTicketPrice();
             return $this->redirectToRoute('step3');
         }
 
@@ -107,7 +108,7 @@ class BookingController extends Controller
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
             'tickets' => $booking->getTickets(),
             'booking' => $booking,
-            'total'   => $bookingManager->getTotalPrice()
+            'total'   => $booking->getTotalPrice()
         ));
     }
 
