@@ -3,17 +3,15 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Booking;
-use AppBundle\Entity\Ticket;
+
 use AppBundle\Form\Type\BookingStep1Type;
 use AppBundle\Form\Type\BookingStep2Type;
 use AppBundle\Manager\BookingManager;
 use AppBundle\Manager\MailManager;
+use AppBundle\Manager\StripeManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Stripe\Charge;
-use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 
 class BookingController extends Controller
 {
@@ -30,15 +28,14 @@ class BookingController extends Controller
     /**
      * @Route("/step1", name="step1")
      */
-    public function step1Action(Request $request)
+    public function step1Action(Request $request, BookingManager $bookingManager)
     {
         $booking = new Booking();
         $form = $this->createForm(BookingStep1Type::class, $booking);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $request->getSession()->set('booking', $booking);
+            $bookingManager->setBooking($booking);
             return $this->redirectToRoute('step2');
         }
         return $this->render(':booking:step1.html.twig', array(
@@ -51,16 +48,14 @@ class BookingController extends Controller
      */
     public function step2Action(Request $request, BookingManager $bookingManager)
     {
-        $booking = $request->getSession()->get('booking');
-        $manager = $bookingManager;
-        $manager->generateTicketForm($booking);
+        $bookingManager->generateTicketForm();
 
-        $form = $this->createForm(BookingStep2Type::class, $booking);
+        $form = $this->createForm(BookingStep2Type::class, $bookingManager->getBooking());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->fillingTicket($booking);
-            $manager->generateTicket($booking);
+            $bookingManager->fillingTicket();
+            $bookingManager->generateTicket();
             return $this->redirectToRoute('step3');
         }
 
@@ -72,50 +67,25 @@ class BookingController extends Controller
     /**
      * @Route("/step3", name="step3")
      */
-    public function step3Action(Request $request, BookingManager $bookingManager, MailManager $mailManager)
+    public function step3Action(Request $request, BookingManager $bookingManager, MailManager $mailManager, StripeManager $stripeManager)
     {
-        $manager    = $bookingManager;
-        $mail       = $mailManager;
-        $booking    = $request->getSession()->get('booking');
-        $total      = $booking->total;
+        $booking = $bookingManager->getBooking();
 
-        if($request->isMethod('POST')){
+        if ($request->isMethod('POST')) {
+            try {
+                $stripe_secret_key = $this->getParameter('stripe_secret_key');
+                $stripeManager->chargeBooking($stripe_secret_key);
 
-            try{
-                $token = $request->get('stripeToken');
-                $request->getSession()->set('test', 'test');
-                Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-                Charge::create(array(
-                    "amount" => $total * 100,
-                    "currency" => "eur",
-                    "source" => $token,
-                    "description" => "Buy tickets"
-                ));
-                // Entrer en bdd
+                $bookingManager->registerBookingInBdd();
+                $mailManager->sendConfirmMessage($booking);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($booking);
-                $em->flush();
-                // Envoi email
-                $mail->sendConfirmMessage($booking);
-
-                // Vider session
-                $manager->emptySession();
-                // Redirecto message confirmation
+                $bookingManager->emptySession();
+                // Redirect to message confirmation
                 $this->addFlash('success', 'Commande effectuée');
                 return $this->redirectToRoute('confirm');
-            }
-            catch(\Stripe\Error\Card $e) {
-                // Since it's a decline, \Stripe\Error\Card will be caught
-                $body = $e->getJsonBody();
-                $err  = $body['error'];
 
-                print('Status is:' . $e->getHttpStatus() . "\n");
-                print('Type is:' . $err['type'] . "\n");
-                print('Code is:' . $err['code'] . "\n");
-                // param is '' in this case
-                print('Param is:' . $err['param'] . "\n");
-                print('Message is:' . $err['message'] . "\n");
+            } catch (\Stripe\Error\Card $e) {
+                $stripeManager->generateStripeErrorCard($e);
             } catch (\Stripe\Error\RateLimit $e) {
                 // Too many requests made to the API too quickly
             } catch (\Stripe\Error\InvalidRequest $e) {
@@ -135,8 +105,9 @@ class BookingController extends Controller
 
         return $this->render(':booking:step3.html.twig', array(
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
-            'tickets'   => $booking->getTickets(),
-            'booking'   => $booking
+            'tickets' => $booking->getTickets(),
+            'booking' => $booking,
+            'total'   => $bookingManager->getTotalPrice()
         ));
     }
 

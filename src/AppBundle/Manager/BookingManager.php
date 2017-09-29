@@ -4,6 +4,7 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -13,11 +14,16 @@ class BookingManager
     private $nbTicket;
     private $nbForm;
     private $booking;
+    private $request;
+    private $session;
+    private $em;
 
-    public function __construct(RequestStack $requestStack, SessionInterface $session)
+    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManager $entityManager)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
+        $this->em = $entityManager;
+        $this->booking = $session->get('booking');
     }
 
     public function getBooking()
@@ -27,52 +33,54 @@ class BookingManager
 
     public function setBooking($booking)
     {
+        $this->request->getSession()->set('booking', $booking);
         $this->booking = $booking;
     }
 
-    private function countTicketForm($booking)
+    public function getTotalPrice()
     {
-        $this->nbTicket = $booking->getNbTicket();
-        $this->nbForm = $booking->getTickets()->count();
+        return $this->booking->getTotalPrice();
     }
 
-    public function generateTicketForm($booking)
+    private function countTicketForm()
     {
-        $this->countTicketForm($booking);
+        $this->nbTicket = $this->booking->getNbTicket();
+        $this->nbForm = $this->booking->getTickets()->count();
+    }
+
+    public function generateTicketForm()
+    {
+        $this->countTicketForm();
 
         while ($this->nbTicket != $this->nbForm) {
             if ($this->nbTicket > $this->nbForm) {
-                $booking->addTicket(new Ticket());
+                $this->booking->addTicket(new Ticket());
             } else {
-                $ticket_array = $booking->getTickets();
+                $ticket_array = $this->booking->getTickets();
                 unset($ticket_array[$this->nbForm]);
             }
-            $this->countTicketForm($booking);
+            $this->countTicketForm();
         }
     }
 
-    public function fillingTicket($booking)
+    public function fillingTicket()
     {
         // Génération date de réservation
-        $booking->setDateResa(new \DateTime());
+        $this->booking->setDateResa(new \DateTime());
 
         //Génération code de réservation
-        $booking->setCode(md5(uniqid(rand(), true)));
+        $this->booking->setCode(md5(uniqid(rand(), true)));
 
     }
 
-    public function generateTicket($booking)
+    public function generateTicket()
     {
-        $total = 0.00;
-        $tickets = $booking->getTickets();
+        $tickets = $this->booking->getTickets();
         foreach ($tickets as $key => $ticket) {
-            $prix = $this->generatePrice($booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
-            $ticket->setPrix($prix);
-            $total += $prix;
+            $price = $this->generatePrice($this->booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
+            $ticket->setPrix($price);
             $tickets[$key] = $ticket;
         }
-        //Stockage en session des tickets
-        $booking->{"total"} = $total;
     }
 
     private function generatePrice($type, $dateNaissance, $reduit)
@@ -103,6 +111,12 @@ class BookingManager
         }
 
         return $prix;
+    }
+
+    public function registerBookingInBdd()
+    {
+        $this->em->persist($this->booking);
+        $this->em->flush();
     }
 
     public function emptySession()
