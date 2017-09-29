@@ -55,7 +55,6 @@ class Booking
     /**
      * @var \DateTime
      * @Assert\DateTime()
-     *
      * @ORM\Column(name="dateResa", type="datetime")
      */
     private $dateResa;
