@@ -18,13 +18,13 @@ class StripeManager
         $this->bookingManager = $bookingManager;
     }
 
-    public function chargeBooking($stripe_secret_key)
+    public function chargeBooking($stripe_private_key)
     {
         $token = $this->request->get('stripeToken');
         $this->request->getSession()->set('test', 'test');
-        Stripe::setApiKey($stripe_secret_key);
+        Stripe::setApiKey($stripe_private_key);
         Charge::create(array(
-            "amount" => $this->bookingManager->getBooking()->getTotalPrice() * 100,
+            "amount" => $this->bookingManager->createOrGetBooking()->getTotalPrice() * 100,
             "currency" => "eur",
             "source" => $token,
             "description" => "Buy tickets"

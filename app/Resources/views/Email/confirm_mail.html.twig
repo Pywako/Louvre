@@ -1,14 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+</head>
 <h3>Commande effectuée</h3>
-<img src="{{ asset('images/logo.png') }}">
-Merci pour votre achat, voici le récapitulatif de votre commande :
-Nom : {{ booking.email }}
-Type de billet :
-{% if booking.type == 1 %}
+<div id="logo">
+    <p><img src="{{ asset('images/logo.png') }}"> Musée du Louvre</p>
+</div>
+
+<p>
+    Merci pour votre achat, voici le récapitulatif de votre commande : <br>
+    <b>Email lié à la commande</b> : {{ booking.email }}<br>
+
+    <b>Type de billet</b> :
+    {% if booking.type == 1 %}
     Billet journée
 {% elseif booking.type == 2 %}
     Billet Demi journée
-{% endif %}
-Date de visite : {{ booking.dateVisit|date("d/m/Y") }}
-Nombre de billets acheté : {{ booking.nbTicket }}
-Total :
+    {% endif %}<br>
 
+    <b>Date de visite</b> : {{ booking.dateVisit|date("d/m/Y") }}<br>
+
+    <b>Nombre de billets acheté</b> : {{ booking.nbTicket }}<br>
+</p>
+</html>

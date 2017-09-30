@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class BookingManager
 {
-    private $booking;
     private $request;
     private $session;
     private $em;
@@ -22,58 +21,58 @@ class BookingManager
         $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->em = $entityManager;
-        $this->booking = $session->get('booking');
     }
 
-    public function getBooking()
+    public function createOrGetBooking()
     {
-        return $this->booking;
+        if(empty($this->session->get('booking')))
+        {
+           $booking = new Booking();
+        }
+        else{
+            $booking = $this->session->get('booking');
+        }
+        return $booking;
     }
 
-    public function setBooking($booking)
+    public function setBookingInSession(Booking $booking)
     {
         $this->request->getSession()->set('booking', $booking);
-        $this->booking = $booking;
     }
 
-    public function generateTicketForm()
+    public function prepareTicketForm(Booking $booking)
     {
-        $nbTicket = $this->booking->getNbTicket();
+        $nbTicket = $booking->getNbTicket();
 
         /**
          * @var $ticketsCollection ArrayCollection
          */
-        $ticketsCollection = $this->booking->getTickets();
+        $ticketsCollection = $booking->getTickets();
         while ($nbTicket != $ticketsCollection->count()) {
             if ($nbTicket > $ticketsCollection->count()) {
-
-                $this->booking->addTicket(new Ticket());
+                $booking->addTicket(new Ticket());
             } else {
                 $ticketsCollection->remove($ticketsCollection->last());
             }
         }
     }
 
-    public function fillingTicket()
+    public function prepareCart(Booking $booking)
     {
-        // Génération date de réservation
-        $this->booking->setDateResa(new \DateTime());
-
-        //Génération code de réservation
-        $this->booking->setCode(md5(uniqid(rand(), true)));
-
-    }
-
-    public function computeTicketPrice()
-    {
-        $tickets = $this->booking->getTickets();
+        $tickets = $booking->getTickets();
         foreach ($tickets as $key => $ticket) {
-            $price = $this->generatePrice($this->booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
+            $price = $this->computePrice($booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
             $ticket->setPrix($price);
         }
     }
 
-    private function generatePrice($type, $dateNaissance, $reduit)
+    /**
+     * @param int $type
+     * @param /Datetime $dateNaissance
+     * @param bool $reduit
+     * @return float|null
+     */
+    private function computePrice($type, $dateNaissance, $reduit)
     {
         $date = new \DateTime();
 
@@ -104,14 +103,24 @@ class BookingManager
         return $price;
     }
 
-    public function registerBookingInBdd()
+    public function registerBookingInBdd(Booking $booking)
     {
-        $this->em->persist($this->booking);
+        $booking->setDateResa(new \DateTime());
+
+        //Génération code de réservation
+        $booking->setCode(md5(uniqid(rand(), true)));
+
+        $this->em->persist($booking);
         $this->em->flush();
     }
 
     public function emptySession()
     {
         $this->session->invalidate();
+    }
+
+    public function displayMessage($message)
+    {
+
     }
 }

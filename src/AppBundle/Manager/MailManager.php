@@ -22,7 +22,7 @@ class MailManager
         $from = 'eticket@louvremusee.com';
         $to = $booking->getEmail();
         $subject = '[Musee Louvre] E-ticket confirmation';
-        $body = $this->templating->render($template, array('booking'=> $booking));
+        $body = $this->templating->render($template, array('booking'=> $booking, 'total' => $booking->getTotalPrice()));
         $this->sendMessage($from, $to, $subject, $body);
     }
 

@@ -23,8 +23,7 @@
         <div class="col s12">
             <div class="row center">
                 <h2>Récapitulatif de la commande</h2>
-
-                <div >
+                <div>
                     <p>Date de visite : {{ booking.dateVisit|date("d/m/Y") }}</p>
                     <p>Type de billet :
                         {% if booking.type == 1 %}
@@ -69,7 +68,7 @@
                     </tr>
                     <tr>
                         <td colspan="3"></td>
-                        <td  class="center">Prix total : {{ total }} €</td>
+                        <td class="center">Prix total : {{ total }} €</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -79,7 +78,7 @@
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="{{ stripe_public_key }}"
                             data-amount="{{ total * 100 }}"
-                            data-email ="{{ booking.email }}"
+                            data-email="{{ booking.email }}"
                             data-name="Paiment"
                             data-description="Billetterie du muséee du Louvre"
                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
