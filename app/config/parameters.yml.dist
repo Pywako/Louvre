@@ -14,9 +14,7 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: ~
     mailer_password: ~
-
-    something:
-
+    secret: QuelqueChose
     #STRIPE KEY
-    stripe_secret_key: yourPrivateKey
+    stripe_private_key: yourPrivateKey
     stripe_public_key: yourPublicKey
