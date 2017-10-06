@@ -6,6 +6,7 @@ use AppBundle\Entity\Booking;
 use AppBundle\Entity\Ticket;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -16,11 +17,13 @@ class BookingManager
     private $session;
     private $em;
 
-    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManagerInterface $entityManager)
+    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManagerInterface $entityManager, StripeManager $stripeManager, MailManager $mailManager)
     {
         $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->em = $entityManager;
+        $this->stripeManager = $stripeManager;
+        $this->mailManager = $mailManager;
     }
 
     public function createBooking()
@@ -57,6 +60,20 @@ class BookingManager
         }
     }
 
+    public function validateCart($stripe_private_key, Booking $booking)
+    {
+        try{
+            $this->stripeManager->chargeBooking($stripe_private_key, $booking->getTotalPrice());
+            $this->registerBookingInBdd($booking);
+            $this->mailManager->sendConfirmMessage($booking);
+            $this->emptySession();
+        }
+        catch (\Exception $e)
+        {
+            throw new Exception($e);
+        }
+
+    }
     public function prepareCart(Booking $booking)
     {
         $tickets = $booking->getTickets();

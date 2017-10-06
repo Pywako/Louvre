@@ -9,22 +9,20 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class StripeManager
 {
     private $request;
-    private $bookingManager;
 
-    public function __construct(
-        RequestStack $requestStack, BookingManager $bookingManager)
+    public function __construct(RequestStack $requestStack)
     {
         $this->request = $requestStack->getCurrentRequest();
-        $this->bookingManager = $bookingManager;
+
     }
 
-    public function chargeBooking($stripe_private_key)
+    public function chargeBooking($stripe_private_key, $totalPrice)
     {
         $token = $this->request->get('stripeToken');
         $this->request->getSession()->set('test', 'test');
         Stripe::setApiKey($stripe_private_key);
         Charge::create(array(
-            "amount" => $this->bookingManager->getBookingInSession()->getTotalPrice() * 100,
+            "amount" => $totalPrice * 100,
             "currency" => "eur",
             "source" => $token,
             "description" => "Buy tickets"

@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class BookingControllerTest extends WebTestCase
 {
     private $client = null;
+
     public function setUp()
     {
         $this->client = static::createClient();
@@ -25,6 +26,16 @@ class BookingControllerTest extends WebTestCase
         $this->client->request('GET', '/');
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         echo $this->client->getResponse()->getContent();
+    }
+
+    public function testStep1IsUp()
+    {
+
+    }
+
+    public function testStep1validation()
+    {
+
     }
 
 
