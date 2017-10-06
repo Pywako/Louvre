@@ -24,7 +24,7 @@ class StripeManager
         $this->request->getSession()->set('test', 'test');
         Stripe::setApiKey($stripe_private_key);
         Charge::create(array(
-            "amount" => $this->bookingManager->createOrGetBooking()->getTotalPrice() * 100,
+            "amount" => $this->bookingManager->getBookingInSession()->getTotalPrice() * 100,
             "currency" => "eur",
             "source" => $token,
             "description" => "Buy tickets"

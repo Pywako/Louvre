@@ -10,6 +10,7 @@ class StaticController extends Controller
 {
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/mentions", name="mentions")
      */
     public function mentionsAction(Request $request)

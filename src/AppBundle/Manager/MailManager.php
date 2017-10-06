@@ -24,6 +24,7 @@ class MailManager
         $subject = '[Musee Louvre] E-ticket confirmation';
         $body = $this->templating->render($template, array('booking'=> $booking, 'total' => $booking->getTotalPrice()));
         $this->sendMessage($from, $to, $subject, $body);
+        return true;
     }
 
     protected function sendMessage($from, $to, $subject, $body)
@@ -38,5 +39,6 @@ class MailManager
             ->setContentType('text/html');
         $this->mailer->send($mail);
 
+        return $mail;
     }
 }
