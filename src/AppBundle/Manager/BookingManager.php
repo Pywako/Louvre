@@ -118,27 +118,4 @@ class BookingManager
     {
         $this->session->invalidate();
     }
-
-    public function prepareBookingForDisplay(Booking $booking)
-    {
-        $tickets = $booking->getTickets();
-        foreach ($tickets as $ticket) {
-            if ($ticket->getReduit() == true) {
-                $ticket->setReduit("oui");
-            } elseif ($ticket->getReduit() == false) {
-                $ticket->setReduit("non");
-            } else {
-                return false;
-            };
-        }
-        if($booking->getType() == 1)
-        {
-            $booking->setType('billet journée');
-        }
-        elseif ($booking->getType() == 2)
-        {
-            $booking->setType('billet demi-journée');
-        }
-        return $booking;
-    }
 }

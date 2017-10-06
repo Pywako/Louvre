@@ -11,12 +11,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 class BookingController extends Controller
 {
     /**
      * @param Request $request
      * @Route("/", name="homepage")
+     * @Method({"GET","HEAD"})
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
@@ -33,11 +36,9 @@ class BookingController extends Controller
      */
     public function step1Action(Request $request, SessionInterface $session, BookingManager $bookingManager)
     {
-        if(empty($session->get('booking')))
-        {
+        if (empty($session->get('booking'))) {
             $booking = $bookingManager->createBooking();
-        }
-        else{
+        } else {
             $booking = $bookingManager->getBookingInSession();
         }
         $form = $this->createForm(BookingStep1Type::class, $booking);
@@ -59,12 +60,11 @@ class BookingController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step2", name="step2")
      */
-    public function step2Action(Request $request, SessionInterface $session,BookingManager $bookingManager)
+    public function step2Action(Request $request, SessionInterface $session, BookingManager $bookingManager)
     {
         if (!empty($session->get('booking'))) {
             $booking = $bookingManager->getBookingInSession();
             $bookingManager->prepareTicketForm($booking);
-
             $form = $this->createForm(BookingStep2Type::class, $booking);
             $form->handleRequest($request);
 
@@ -72,7 +72,6 @@ class BookingController extends Controller
                 $bookingManager->prepareCart($booking);
                 return $this->redirectToRoute('step3');
             }
-
             return $this->render(':booking:step2.html.twig', array(
                 'form' => $form->createView()
             ));
@@ -91,22 +90,18 @@ class BookingController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step3", name="step3")
      */
-    public function step3Action(Request $request, SessionInterface $session,BookingManager $bookingManager, MailManager $mailManager, StripeManager $stripeManager)
+    public function step3Action(Request $request, SessionInterface $session, BookingManager $bookingManager, MailManager $mailManager, StripeManager $stripeManager)
     {
         if (!empty($session->get('booking'))) {
             $booking = $bookingManager->getBookingInSession();
-            $booking = $bookingManager->prepareBookingForDisplay($booking);
             dump($booking);
             if ($request->isMethod('POST')) {
-                $stripe_secret_key = $this->getParameter('stripe_private_key');
                 if ($request->get('stripeToken')) {
                     try {
-                        $stripeManager->chargeBooking($stripe_secret_key);
+                        $stripeManager->chargeBooking($this->getParameter('stripe_private_key'));
                         $bookingManager->registerBookingInBdd($booking);
                         $mailManager->sendConfirmMessage($booking);
                         $bookingManager->emptySession();
-                        // Redirect to message confirmation
-
                         return $this->redirectToRoute('confirm');
                     } catch (\Exception $e) {
                         $this->addFlash('error', 'Une erreur est survenu pendant la commande, veuillez recommencer.');
@@ -120,8 +115,7 @@ class BookingController extends Controller
                 'booking' => $booking,
                 'total' => $booking->getTotalPrice()
             ));
-        }
-        else{
+        } else {
             $this->addFlash('error', 'Pas de commande en cours, veuillez recommencer');
             return $this->redirectToRoute('homepage');
         }
@@ -129,6 +123,7 @@ class BookingController extends Controller
 
     /**
      * @Route("/confirm", name="confirm")
+     * @Method({"GET"})
      */
     public function confirmAction()
     {

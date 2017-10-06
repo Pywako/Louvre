@@ -26,7 +26,11 @@
                 <div>
                     <p>Date de visite : {{ booking.dateVisit|date("d/m/Y") }}</p>
                     <p>Type de billet :
-                        {{ booking.type }}
+                        {% if booking.type == 1 %}
+                            Billet journée
+                        {% elseif booking.type == 2 %}
+                            Billet Demi journée
+                        {% endif %}
                     </p>
                 </div>
 
@@ -40,16 +44,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% if tickets %}
-                        {% for ticket in tickets %}
-                            <tr>
-                                <td>{{ ticket.nom }}</td>
-                                <td>{{ ticket.prenom }}</td>
-                                <td>{{ ticket.reduit }}</td>
-                                <td>{{ ticket.prix }} €</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
+                    {% for ticket in tickets %}
+                        <tr>
+                            <td>{{ ticket.nom }}</td>
+                            <td>{{ ticket.prenom }}</td>
+                            <td>{% if ticket.reduit == true %}
+                                    Oui
+                                {% elseif ticket.reduit == false %}
+                                    Non
+                                {% endif %}</td>
+                            <td>{{ ticket.prix }} €</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                     <tfoot>
                     <tr>
