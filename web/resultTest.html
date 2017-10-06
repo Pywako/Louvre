@@ -1,0 +1,120 @@
+PHPUnit 6.3.1 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Réservation de billet pour le musée du Louvre (projet4)">
+
+    <title> Acccueil - Musée du Louvre - Réservation </title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Imporation des styles et materialize dans twig-->
+            <!--Import materialize.css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <!-- Feuille de style -->
+        <link rel="stylesheet" href="/css/style.css">
+    
+
+</head>
+<body>
+    <div id="global">
+        <!------------------------ Entête ------------------------>
+        <header>
+            <a href="/">
+                <h1 class="header center light-blue-text">Musée du Louvre</h1>
+            </a>
+
+        </header>
+        <!------------------------ Contenu ------------------------>
+        <div class="container" id="contenu">
+            <div class="row">
+                    <a href="#" class="breadcrumb">Accueil</a>
+            </div>
+            <div class="">
+                            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-image">
+                                    <img src="/images/pyramide2.jpg" id="banniere">
+                            <span class="card-title">
+                                Accueil                            </span>
+                                                    </div>
+                        <div class="card-content">
+                                <h3 class="row center">
+    Bienvenue sur la platform de réservation de billet du musée du Louvre.
+    </h3>
+    <div class="row center">
+        <a class="waves-effect waves-light btn amber accent-4" href="/step1">Commander</a>
+    </div>
+    <div class="row center">
+        <h4>Les ouvertures/fermeture du musée:</h4>
+        <ul>
+            <li>Lundi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche</li>
+            <li>Le musée est fermé le mardi et les jours suivants :</li>
+            <li>1er novembre</li>
+            <li>1er Mai</li>
+            <li>25 Décembre</li>
+        </ul>
+    </div>
+    <div class="row center">
+        <h4>tarifs:</h4>
+        <ul>
+            <li>Standard (à partir de 12 ans) : 16€</li>
+            <li>Enfant (entre 4 et 12 ans) : 8€</li>
+            <li>Bébé (avant 4 ans) : gratuis</li>
+            <li>Sénior (à partie de 60 ans): 12€</li>
+            <li>Réduit (étudiant, employé du musée, service culturels ...) : 10€</li>
+            <li>Demi journée ( visite à partir de 14h) : demi tarif</li>
+        </ul>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------------------------ Pied de page ------------------------>
+        <footer class="page-footer light-blue darken-2">
+            <div class="footer-copyright">
+                <div class="container">
+                    <p id="mentions">
+                    @ 2017 <a href="/mentions" class="white-text"> Mentions légales</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+            <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $('select').material_select();
+            });
+        </script>
+    </body>
+</html>
+
+Time: 32.89 seconds, Memory: 38.00MB
+
+OK (1 test, 1 assertion)
+
+
+[1;37;40mCode Coverage Report:    [0m
+[1;37;40m  2017-09-29 14:13:44    [0m
+[1;37;40m                         [0m
+[1;37;40m Summary:                [0m
+[37;41m  Classes:  0.00% (0/16) [0m
+[37;41m  Methods:  1.43% (1/70) [0m
+[37;41m  Lines:    0.29% (1/344)[0m
+
+\AppBundle\Controller::BookingController
+  [37;41mMethods:  20.00% ( 1/ 5)[0m   [37;41mLines:   2.44% (  1/ 41)[0m
