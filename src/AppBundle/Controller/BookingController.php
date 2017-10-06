@@ -33,6 +33,7 @@ class BookingController extends Controller
      * @param BookingManager $bookingManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step1", name="step1")
+     * @Method({"GET","POST"})
      */
     public function step1Action(Request $request, SessionInterface $session, BookingManager $bookingManager)
     {
@@ -59,6 +60,8 @@ class BookingController extends Controller
      * @param BookingManager $bookingManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step2", name="step2")
+     * @Method({"GET","POST"})
+
      */
     public function step2Action(Request $request, SessionInterface $session, BookingManager $bookingManager)
     {
@@ -89,6 +92,7 @@ class BookingController extends Controller
      * @param StripeManager $stripeManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step3", name="step3")
+     * @Method({"GET","POST"})
      */
     public function step3Action(Request $request, SessionInterface $session, BookingManager $bookingManager, MailManager $mailManager, StripeManager $stripeManager)
     {
