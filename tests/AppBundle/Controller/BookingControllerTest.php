@@ -32,24 +32,22 @@ class BookingControllerTest extends WebTestCase
     public function UrlDataProvider()
     {
         return [
-            ['/',Response::HTTP_OK],
-            ['/step1',Response::HTTP_OK],
-            ['/step2',Response::HTTP_FOUND],
-            ['/step3',Response::HTTP_FOUND],
-            ['/confirm/019e41daf6d8eb3b729cf774ce809dca',Response::HTTP_OK]
+            ['/', Response::HTTP_OK],
+            ['/step1', Response::HTTP_OK],
+            ['/step2', Response::HTTP_FOUND],
+            ['/step3', Response::HTTP_FOUND],
+            ['/confirm/019e41daf6d8eb3b729cf774ce809dca', Response::HTTP_OK]
         ];
     }
 
     /**
      * @dataProvider UrlDataProvider
      */
-    public function testUrl($url,$expected)
+    public function testUrl($url, $expected)
     {
         $this->client->request('GET', $url);
         $this->assertSame($expected, $this->client->getResponse()->getStatusCode());
     }
-
-
 
     public function testOrderFlow()
     {
@@ -76,11 +74,7 @@ class BookingControllerTest extends WebTestCase
 
         $crawler = $this->client->submit($ticketForm);
         $this->assertEquals($this->client->getResponse()->getStatusCode(), Response::HTTP_FOUND);
-
-
     }
-
-
 
 
 }
