@@ -8,14 +8,40 @@
 
 {% block contenu %}
     <div class="row">
-        <form class="col s12">
-            <div class="row center">
-                <i class="center-align large material-icons light-blue-text">check_circle</i>
-                <p class="center-align">Confirmation d'achat</p>
-                <p class="center-align">La transaction s'est bien déroulé.
-                    Un email contenant votre code de réservationvous a été envoyé.
-                </p>
-            </div>
-        </form>
+        <p class="row center">
+            <i class="center-align large material-icons light-blue-text">check_circle</i>
+        <h3 class="center-align">Confirmation d'achat</h3>
+        <p class="center-align">La transaction s'est bien déroulé.<br>
+            Un email contenant votre code de réservationvous a été envoyé à
+            <strong>{{ booking.email }}</strong>.<br>
+            En cas de problème veuillez contacter l'administrateur avec le code de réservation suivant :
+            <strong>{{ booking.code }}</strong>.
+        </p>
+        <h3 class="center-align">Récapitulatif de commande :</h3>
+        <div class="recapitulatif">
+            <table class="highlight centered responsive-table">
+                <thead>
+                <tr>
+                    <th>Visiteur</th>
+                    <th>Prix</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket.nom }} {{ ticket.prenom }}</td>
+                        <td>{{ ticket.prix }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <p class="center-align">
+                <strong>Nombre total de billet :</strong> {{ booking.nbTicket }}<br>
+                <strong>Prix total :</strong> {{ total }} €<br>
+                <strong>Date de visite :</strong> {{ booking.dateVisit|date("d/m/Y") }}<br>
+                Pour bénéficier des tafis réduits, Veuillez apporter les justificatifs correspondant à votre status.
+            </p>
+        </div>
     </div>
 {% endblock %}
+

@@ -11,13 +11,20 @@
 
 <p>
     Merci pour votre achat, voici le récapitulatif de votre commande : <br>
-    <b>Email lié à la commande</b> : {{ booking.email }}<br>
+    <strong>Email lié à la commande</strong> : {{ booking.email }}<br>
 
-    <b>Type de billet</b> :{{ booking.type }}<br>
+    <strong>Type de billet</strong> :{{ booking.type }}<br>
 
-    <b>Date de visite</b> : {{ booking.dateVisit|date("d/m/Y") }}<br>
+    <strong>Date de visite</strong> : {{ booking.dateVisit|date("d/m/Y") }}<br>
 
-    <b>Nombre de billets acheté</b> : {{ booking.nbTicket }}<br>
-
+    <strong>Nombre de billets acheté</strong> : {{ booking.nbTicket }}<br>
+    <strong>Code de réservation :</strong> : {{ booking.code }}<br>
+    <strong>Nom des visiteurs :</strong>
+    {%  %}
 </p>
+<ul>
+    {% for ticket in tickets %}
+        <li>{{ ticket.nom }}&nbsp{{ ticket.prenom }}</li>
+    {% endfor %}
+</ul>
 </html>
