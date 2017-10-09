@@ -20,11 +20,12 @@
     <strong>Nombre de billets acheté</strong> : {{ booking.nbTicket }}<br>
     <strong>Code de réservation :</strong> : {{ booking.code }}<br>
     <strong>Nom des visiteurs :</strong>
-    {%  %}
 </p>
 <ul>
     {% for ticket in tickets %}
         <li>{{ ticket.nom }}&nbsp{{ ticket.prenom }}</li>
     {% endfor %}
 </ul>
+<p>En vous souhaitant une très bonne visite.</p>
+<p>L'équipe du Musée du Louvre</p>
 </html>
