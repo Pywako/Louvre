@@ -25,7 +25,9 @@ class BookingStep2Type extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'validation_groups' => array('step2'),
             'data_class' => 'AppBundle\Entity\Booking'
+
         ));
     }
 }
