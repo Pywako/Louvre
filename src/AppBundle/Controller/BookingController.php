@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Booking;
 use AppBundle\Form\Type\BookingStep1Type;
 use AppBundle\Form\Type\BookingStep2Type;
 use AppBundle\Manager\BookingManager;
@@ -61,7 +62,6 @@ class BookingController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @Route("/step2", name="step2")
      * @Method({"GET","POST"})
-
      */
     public function step2Action(Request $request, SessionInterface $session, BookingManager $bookingManager)
     {
@@ -102,7 +102,7 @@ class BookingController extends Controller
                 try {
                     $stripe_private_key = $this->getParameter('stripe_private_key');
                     $bookingManager->validateCart($stripe_private_key, $booking);
-                    return $this->redirectToRoute('confirm');
+                    return $this->redirectToRoute('confirm', ['code' => $booking->getCode()]);
                 } catch (\Exception $e) {
                     $this->addFlash('error', 'Une erreur est survenu pendant la commande, veuillez recommencer.');
                 }
@@ -118,12 +118,19 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/confirm", name="confirm")
+     * @Route("/confirm/{code}", name="confirm")
      * @Method({"GET"})
      */
-    public function confirmAction()
+    public function confirmAction(Booking $booking = null, $code = "default")
     {
-        $this->addFlash('sucess', 'Commande effectuée');
-        return $this->render(':booking:confirm.html.twig', array());
+        if (!empty($booking) && !empty($booking->getCode()) && $code === $booking->getCode()){
+            $this->addFlash('sucess', 'Commande effectuée');
+            return $this->render(':booking:confirm.html.twig', array('tickets' => $booking->getTickets(),
+                'booking' => $booking, 'total' => $booking->getTotalPrice()));
+
+        } else {
+            $this->addFlash('error', 'Pas de commande en cours, veuillez recommencer');
+            return $this->redirectToRoute('homepage');
+        }
     }
 }
