@@ -44,23 +44,24 @@ class Ticket
      * @var string
      * @Assert\Type(
      *     type = "string",
-     *     message = "Prénom invalide"
-     *     )
-     * @Assert\NotNull()
+     *     message = "Prénom invalide",
+     *     groups={"step1"})
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     * @Assert\NotNull()
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
 
     /**
      * @var bool
-     * @Assert\Type("bool")
+     * @Assert\Type("bool",
+     *     groups={"step1"})
      *
      * @ORM\Column(name="reduit", type="boolean")
      */
@@ -70,17 +71,16 @@ class Ticket
      * @var int
      * @Assert\Range(
      *     min = 0,
-     *     max = 300
-     * )
-     *
+     *     max = 300,
+     *     groups={"step1"})
      * @ORM\Column(name="prix", type="smallint")
      */
     private $prix;
 
     /**
      * @var string
-     * @Assert\Country()
-     * @Assert\NotNull()
+     * @Assert\Country(groups={"step1"})
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="pays", type="string")
      */
     private $pays;

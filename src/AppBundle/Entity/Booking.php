@@ -33,29 +33,30 @@ class Booking
      * @var string
      * @Assert\Email(
      *     message = "Aucun serveur mail n'a été trouvé pour ce domaine",
-     *     checkMX=true)
-     * @Assert\NotNull()
+     *     checkMX=true,
+     *     groups={"step1"})
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
-    /**
+       /**
      * @var \DateTime
-     * @Assert\DateTime()
+     * @Assert\DateTime(groups={"step1"})
      * @Assert\Range(
      *     min = "today",
-     *     max = "next year UTC"
-     * )
-     * @BookingAssert\ConstraintNotTuesdaySunday()
-     * @BookingAssert\ConstraintHoliday()
-     * @Assert\NotNull()
+     *     max = "next year UTC",
+     * groups={"step1"})
+     * @BookingAssert\ConstraintNotTuesdaySunday(groups={"step1"})
+     * @BookingAssert\ConstraintHoliday(groups={"step1"})
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="dateVisit", type="date")
      */
     private $dateVisit;
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
+     * @Assert\DateTime(groups={"step2"})
      * @ORM\Column(name="dateResa", type="datetime")
      */
     private $dateResa;
@@ -64,9 +65,9 @@ class Booking
      * @var int
      * @Assert\Range(
      *     min = 1,
-     *     max = 10
-     * )
-     * @Assert\NotNull()
+     *     max = 10,
+     *     groups={"step1"})
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="nbTicket", type="smallint")
      */
     private $nbTicket;
@@ -80,7 +81,7 @@ class Booking
 
     /**
      * @var int
-     * @Assert\NotNull()
+     * @Assert\NotNull(groups={"step1"})
      * @ORM\Column(name="type", type="smallint", length=255)
      */
     private $type;
