@@ -26,15 +26,8 @@ class ConstraintFullValidator extends ConstraintValidator
     {
         $dateVisit = $value->getDateVisit();
 
-        $dateVisitTickets = $this->em
-            ->getRepository(Booking::class)
-            ->findBy(
-                array('dateVisit' => $dateVisit));
-        //Récupérer le nombre total de billet pour la date en question en bdd
-        $nbTicketBought = 0;
-        foreach ($dateVisitTickets as $ticket) {
-            $nbTicketBought += $ticket->getNbTicket();
-        }
+        $nbTicketBought = $this->em->getRepository(Booking::class)->countTicketsForDate($dateVisit);
+
         $nbTotalTicket = $nbTicketBought + $value->getNbTicket();
 
         // si nb de billet à acheter + nb total > 1000 billets ->erreur

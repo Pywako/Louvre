@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class BookingRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countTicketsForDate($date){
+        $qb = $this->createQueryBuilder('b')
+            ->select('SUM(b.nbTicket)')
+            ->where('b.dateVisit = :dateVisit')
+            ->setParameter('dateVisit', $date)
+        ->getQuery();
+
+        return $qb->getSingleScalarResult();
+    }
 }
