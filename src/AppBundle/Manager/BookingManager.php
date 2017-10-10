@@ -7,19 +7,16 @@ use AppBundle\Entity\Ticket;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class BookingManager
 {
-    private $request;
     private $session;
     private $em;
 
-    public function __construct(RequestStack $requestStack, SessionInterface $session, EntityManagerInterface $entityManager, StripeManager $stripeManager, MailManager $mailManager)
+    public function __construct(SessionInterface $session, EntityManagerInterface $entityManager, StripeManager $stripeManager, MailManager $mailManager)
     {
-        $this->request = $requestStack->getCurrentRequest();
         $this->session = $session;
         $this->em = $entityManager;
         $this->stripeManager = $stripeManager;
@@ -40,7 +37,7 @@ class BookingManager
 
     public function setBookingInSession(Booking $booking)
     {
-        $this->request->getSession()->set('booking', $booking);
+        $this->session->set('booking', $booking);
     }
 
     public function prepareTicketForm(Booking $booking)
@@ -77,7 +74,7 @@ class BookingManager
     public function prepareCart(Booking $booking)
     {
         $tickets = $booking->getTickets();
-        foreach ($tickets as $key => $ticket) {
+        foreach ($tickets as $ticket) {
             $price = $this->computePrice($booking->getType(), $ticket->getDateNaissance(), $ticket->getReduit());
             $ticket->setPrix($price);
         }
@@ -89,7 +86,7 @@ class BookingManager
      * @param bool $reduit
      * @return float|null
      */
-    private function computePrice($type, $dateNaissance, $reduit)
+    public function computePrice($type, $dateNaissance, $reduit)
     {
         $date = new \DateTime();
 
@@ -110,13 +107,12 @@ class BookingManager
         // tarif réduit
 
         if ($age >= 12 && $reduit === true) {
-            $price = Ticket::TARIF_HALF;
+            $price = Ticket::TARIF_DISCOUNT;
         }
 
         if ($type == Booking::TYPE_HALF_DAY && $age >= 4) {
             $price = $price * Ticket::COEFICIENT_HALF_DAY;
         }
-
         return $price;
     }
 
