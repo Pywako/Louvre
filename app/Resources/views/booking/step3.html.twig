@@ -73,6 +73,7 @@
                 <form action="" method="POST">
                     <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-label="Acheter"
                             data-key="{{ stripe_public_key }}"
                             data-amount="{{ total * 100 }}"
                             data-email="{{ booking.getEmail }}"
