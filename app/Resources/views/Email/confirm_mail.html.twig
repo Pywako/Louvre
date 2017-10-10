@@ -15,13 +15,16 @@
 
     <strong>Nombre de billets acheté</strong> : {{ booking.nbTicket }}<br>
     <strong>Code de réservation :</strong> : {{ booking.code }}<br>
-    <strong>Nom des visiteurs :</strong>
+    <strong>Visiteurs :</strong>
 </p>
 <ul>
     {% for ticket in tickets %}
         <li>{{ ticket.nom }} {{ ticket.prenom }} {{ ticket.prix }}€</li>
     {% endfor %}
 </ul>
+<p>
+    <strong>Prix total :</strong> : {{ total }}<br>
+</p>
 <p>En vous souhaitant une très bonne visite.</p>
 <p>L'équipe du Musée du Louvre</p> <div id="logo"><img src="{{ absolute_url(asset('images/logo.png')) }}">
 </div>
