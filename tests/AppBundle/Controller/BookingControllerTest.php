@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Pywako
- * Date: 29/09/2017
- * Time: 13:56
- */
 
 namespace Tests\AppBundle\Controller;
 
@@ -36,7 +30,7 @@ class BookingControllerTest extends WebTestCase
             ['/step1', Response::HTTP_OK],
             ['/step2', Response::HTTP_FOUND],
             ['/step3', Response::HTTP_FOUND],
-            ['/confirm/019e41daf6d8eb3b729cf774ce809dca', Response::HTTP_OK]
+            ['/confirm', Response::HTTP_FOUND]
         ];
     }
 
@@ -54,7 +48,8 @@ class BookingControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '/step1');
 
         $bookingForm = $crawler->selectButton('Continuer')->form();
-        $bookingForm['booking_step1[email]'] = 'wongaliceyy@gmail.com';
+        $bookingForm['booking_step1[email][first]'] = 'wongaliceyy@gmail.com';
+        $bookingForm['booking_step1[email][second]'] = 'wongaliceyy@gmail.com';
         $bookingForm['booking_step1[dateVisit]'] = "20/12/2017";
         $bookingForm['booking_step1[nbTicket]'] = 1;
         $bookingForm['booking_step1[type]'] = 1;
