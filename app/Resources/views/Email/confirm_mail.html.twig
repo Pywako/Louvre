@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
 </head>
 <h3>Commande effectuée</h3>
-<div id="logo">
-    <img src="{{ absolute_url(asset('images/logo.png')) }}">
-    <p>Musée du Louvre</p>
-</div>
-
+<br>
 <p>
     Merci pour votre achat, voici le récapitulatif de votre commande : <br>
     <strong>Email lié à la commande</strong> : {{ booking.email }}<br>
@@ -27,5 +23,7 @@
     {% endfor %}
 </ul>
 <p>En vous souhaitant une très bonne visite.</p>
-<p>L'équipe du Musée du Louvre</p>
+<p>L'équipe du Musée du Louvre</p> <div id="logo">
+    <img src="{{ absolute_url(asset('images/logo.png')) }}">
+</div>
 </html>
