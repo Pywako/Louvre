@@ -19,17 +19,6 @@ class BookingController extends Controller
 {
     /**
      * @param Request $request
-     * @Route("/", name="homepage")
-     * @Method({"GET","HEAD"})
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function indexAction(Request $request)
-    {
-        return $this->render(':booking:index.html.twig', array());
-    }
-
-    /**
-     * @param Request $request
      * @param SessionInterface $session
      * @param BookingManager $bookingManager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

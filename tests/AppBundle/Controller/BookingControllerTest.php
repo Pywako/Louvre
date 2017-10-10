@@ -26,7 +26,6 @@ class BookingControllerTest extends WebTestCase
     public function UrlDataProvider()
     {
         return [
-            ['/', Response::HTTP_OK],
             ['/step1', Response::HTTP_OK],
             ['/step2', Response::HTTP_FOUND],
             ['/step3', Response::HTTP_FOUND],
