@@ -19,11 +19,10 @@
 </p>
 <ul>
     {% for ticket in tickets %}
-        <li>{{ ticket.nom }} {{ ticket.prenom }}</li>
+        <li>{{ ticket.nom }} {{ ticket.prenom }} {{ ticket.prix }}€</li>
     {% endfor %}
 </ul>
 <p>En vous souhaitant une très bonne visite.</p>
-<p>L'équipe du Musée du Louvre</p> <div id="logo">
-    <img src="{{ absolute_url(asset('images/logo.png')) }}">
+<p>L'équipe du Musée du Louvre</p> <div id="logo"><img src="{{ absolute_url(asset('images/logo.png')) }}">
 </div>
 </html>
