@@ -9,7 +9,12 @@
     Merci pour votre achat, voici le récapitulatif de votre commande : <br>
     <strong>Email lié à la commande</strong> : {{ booking.email }}<br>
 
-    <strong>Type de billet</strong> :{{ booking.type }}<br>
+    <strong>Type de billet</strong> :
+    {% if booking.type == 1 %}
+    Billet journée
+    {% elseif booking.type == 2 %}
+    Billet Demi journée
+    {% endif %}<br>
 
     <strong>Date de visite</strong> : {{ booking.dateVisit|date("d/m/Y") }}<br>
 
@@ -26,6 +31,7 @@
     <strong>Prix total :</strong> {{ total }}<br>
 </p>
 <p>En vous souhaitant une très bonne visite.</p>
-<p>L'équipe du Musée du Louvre</p> <div id="logo"><img src="{{ absolute_url(asset('images/logo.png')) }}">
+<p>L'équipe du Musée du Louvre</p>
+<div id="logo"><img src="{{ absolute_url(asset('images/logo.png')) }}">
 </div>
 </html>

@@ -30,6 +30,7 @@
                 {% for ticket in tickets %}
                     <tr>
                         <td>{{ ticket.nom }} {{ ticket.prenom }}</td>
+
                         <td>{{ ticket.prix }} €</td>
                     </tr>
                 {% endfor %}
@@ -39,6 +40,12 @@
                 <strong>Nombre total de billet :</strong> {{ booking.nbTicket }}<br>
                 <strong>Prix total :</strong> {{ total }} €<br>
                 <strong>Date de visite :</strong> {{ booking.dateVisit|date("d/m/Y") }}<br>
+                <strong>Type de billet :</strong>
+                {% if booking.type == 1 %}
+                Billet journée
+                {% elseif booking.type == 2 %}
+                Billet Demi journée
+                {% endif %}<br>
                 Pour bénéficier des tafis réduits, Veuillez apporter les justificatifs correspondant à votre status.
             </p>
         </div>
