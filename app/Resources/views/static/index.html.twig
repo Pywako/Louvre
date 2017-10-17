@@ -1,0 +1,43 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %} {{ 'accueil'|trans }} - {{ parent() }} {% endblock %}
+
+{% block breadcrumbs %}
+    <a href="#" class="breadcrumb">{{ 'accueil'|trans }}</a>
+{% endblock %}
+
+{% block image %}
+        <img src="{{ asset('images/pyramide2.jpg') }}" id="banniere">
+{% endblock %}
+
+{% block etape %}{{ 'accueil'|trans }}{% endblock %}
+
+{% block bouton %}
+{% endblock %}
+
+{% block contenu %}
+    <h3 class="row center">{% trans %} index.bienvenue {% endtrans %}
+
+    </h3>
+    <div class="row center">
+        <a class="waves-effect waves-light btn amber accent-4" href="{{ path('step1') }}">{{ 'commander'|trans }}</a>
+    </div>
+    <div class="row center">
+        <h4>{{ 'index.reservation'|trans }}:</h4>
+        <p><strong>{% trans %}index.reservation.message.1{% endtrans %}:</strong></p>
+        <p>{% trans %}index.jours{% endtrans %}</p>
+        <p><strong>{{ 'index.sauf'|trans }}</strong> {% trans %}index.reservation.message.2{% endtrans %}</p>
+    </div>
+    <div class="row center">
+        <h4>{{ 'index.tarif.titre'|trans }}:</h4>
+        <ul>
+            <li><strong>{% trans %}index.tarif.standard{% endtrans %} :</strong> 16€</li>
+            <li><strong>{% trans %}index.tarif.enfant{% endtrans %} :</strong> 8€</li>
+            <li><strong>{% trans %}index.tarif.bebe{% endtrans %} :</strong> {{ 'index.tarif.gratuis'|trans }}</li>
+            <li><strong>{% trans %}index.tarif.senior{% endtrans %} :</strong> 12€</li>
+            <li><strong>{% trans %}index.tarif.reduit{% endtrans %} :</strong> 10€</li>
+            <li><strong>{% trans %}index.tarif.demi.journee{% endtrans %} :</strong> {{ 'index.tarif.demi tarif'|trans }}</li>
+            <li>{% trans %}index.tarif.message{% endtrans %} :</li>
+        </ul>
+    </div>
+{% endblock %}
