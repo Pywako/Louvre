@@ -3,6 +3,9 @@ accueil: Accueil
 commander: Commander
 coordonnee: Coordonnées
 paiement: Paiement
+confirmation: Confirmation
+mentions.legale: mentions légales
+
 index:
     bienvenue : Bienvenue sur la platforme de réservation de billet du musée du Louvre.
     reservation: Réservation
@@ -20,7 +23,7 @@ index:
         demi.journee: Demi journée ( visite à partir de 14h)
         gratuis: gratuis
         demi tarif: demi tarif
-        message: Pour pouvoir bénéficier du tarif réduit, Veuillez apporter les justificatifs correspondant à votre statut.
+        message: Afin de pouvoir bénéficier du tarif réduit, Veuillez apporter les justificatifs correspondant à votre statut.
 
 step1:
     nombre.billet: Nombre de billet
@@ -46,12 +49,19 @@ step3:
     paiement.nom: Billetterie du muséee du Louvre
     boutton: Acheter
 
-
 prix: Prix
 oui: Oui
 non: Non
-
 Continuer: Continuer
+
+confirm:
+    titre: Confirmation d'achat
+    message1: La transaction s'est bien déroulé
+    message2: Un email contenant votre code de réservation vous a été envoyé à
+    message3: En cas de problème veuillez contacter l'administrateur avec le code de réservation suivant
+    recapitulatif: Récapitulatif de la commande
+    visiteur: Visiteur
+    prix: Prix
 
 mentions:
     titre:

@@ -2,6 +2,8 @@ commander: Booking
 accueil: Home
 coordonnee: Details
 paiement: Payment
+confirmation: Confirmation
+mentions.legale: legal notice
 
 index:
     bienvenue : Louvre Museum's reservation platform
@@ -21,7 +23,6 @@ index:
         gratuis: free
         demi tarif: Half price
         message: for reduced price, please bring all relevant document to justify your status (student card ...)
-
 
 step1:
     nombre.billet: Number of tickets
@@ -53,6 +54,15 @@ step3:
 prix: Price
 oui: Yes
 non: No
+
+confirm:
+    titre: Purchase confirmation
+    message1: Transaction completed
+    message2: An email has been sent to
+    message3: if unexpected problems occur, please contect the website administrator with the following reservation code
+    recapitulatif: Booking overview
+    visiteur: Visitor
+    prix: Price
 
 mentions:
     titre:
