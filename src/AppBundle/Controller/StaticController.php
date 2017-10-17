@@ -15,7 +15,7 @@ class StaticController extends Controller
      */
     public function indexAction()
     {
-        return $this->render(':booking:index.html.twig', array());
+        return $this->render(':static:index.html.twig', array());
     }
 
     /**
