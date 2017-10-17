@@ -1,12 +1,12 @@
 {% extends "::layout.html.twig" %}
-{% block title %} Acccueil - {{ parent() }} {% endblock %}
+{% block title %} {{ 'accueil'|trans }} - {{ parent() }} {% endblock %}
 
 {% block breadcrumbs %}
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
-                <a href="#" class="breadcrumb">Commander</a>
+                <a href="{{ path('homepage') }}" class="breadcrumb">{{ 'accueil'|trans }}</a>
+                <a href="#" class="breadcrumb">{{ 'commander'|trans }}</a>
             </div>
         </div>
     </nav>
@@ -17,15 +17,13 @@
     <img src="" id="banniere">
 {% endblock %}
 
-{% block etape %}Commander{% endblock %}
-
 {% block contenu %}
     {{ form_start(form) }}
     {{ form_errors(form) }}
-        {{ form_row(form.nbTicket,{'label': 'Nombre de billet'}) }}
-        {{ form_row(form.email, {'label': 'Email'}) }}
-        {{ form_row(form.dateVisit, {'label': 'Date de visite'}) }}
-        {{ form_row(form.type, {'label': 'Type de billet'}) }}
+        {{ form_row(form.nbTicket,{'label': 'step1.nombre.billet'}) }}
+        {{ form_row(form.email, {'label': 'step1.email'}) }}
+        {{ form_row(form.dateVisit, {'label': 'step1.date.visite'}) }}
+        {{ form_row(form.type, {'label': 'step1.type.billet'}) }}
     <div class="row center">
         {{ form_row(form.continuer, {'attr': {'class' : 'waves-effect waves-light btn amber accent-4'}}) }}
     </div>

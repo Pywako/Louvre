@@ -5,21 +5,23 @@
 {% endblock %}
 
 {% block contenu %}
-    <h2>Mentions légales</h2>
-    <h3>Le site internet</h3>
-    <p>Ce site internet est <strong>fictif</strong>. Il est réalisé dans le cadre d'une formation.<br>
-    Toutes informations et contenus ont été crée de toute pièce, toutes ressemblances avec des organismes réels ou événements serait purement fortuite<br>
+    <h2>{{ 'mentions.titre.principal'|trans }}</h2>
+    <h3>{{ 'mentions.titre.website'|trans }}</h3>
+    <p>{{ 'mentions.website.message1'|trans }} <strong>{{ 'mentions.website.fictif'|trans }}</strong>. {{ 'mentions.website.message2'|trans }} .<br>
+        {{ 'mentions.website.message3'|trans }}<br>
 
-        Développement : Alice Wong<br />
-        Droit d'auteur/d'images : Pixabay, Alice Wong<br />
-        Licence : Creative Commons 0.<br>
+        {{ 'mentions.website.dev'|trans }} : Alice Wong<br />
+        {{ 'mentions.website.image'|trans }} : Pixabay<br />
+        {{ 'mentions.website.licence'|trans }} : Creative Commons 0.<br>
     </p>
-    <h3>Données personnelles </h3>
-    <p>Les informations recueillies sur le site font l’objet d’un traitement informatique destiné à <strong>l'équipe de la platforme de réservation du musée</strong><br>
-    Pour la ou les finalité(s) suivante(s) : <strong>la gestion des billets de réservations.</strong><br>
-        Le ou les destinataire(s) des données sont : <strong>Le service de réservation du musée</strong></p>
-    <p>Conformément à la <a href="/fr/loi-78-17-du-6-janvier-1978-modifiee">loi « informatique et libertés » du 6 janvier 1978 modifiée</a>, vous disposez d’un <a href="/fr/le-droit-dacces">droit d’accès</a> et <a href="/fr/le-droit-de-rectification">de rectification</a> aux informations qui vous concernent. </p>
-    <p>Vous pouvez accèder aux informations vous concernant en vous adressant à l'administrateur du site<br>
-    <p>Vous pouvez également, pour des motifs légitimes, <a href="/fr/le-droit-dopposition">vous opposer au traitement des données vous concernant</a>.</p>
-    <p>Pour en savoir plus, <a href="/fr/comprendre-vos-droits">consultez vos droits sur le site de la CNIL</a>.</p>
+    <h3>{{ 'mentions.titre.data'|trans }}</h3>
+    <p>{{ 'mentions.data.message1'|trans }}<strong>{{ 'mentions.data.message2'|trans }}</strong><br>
+        {{ 'mentions.data.message3'|trans }} : <strong>{{ 'mentions.data.message4'|trans }}.</strong><br>
+        {{ 'mentions.data.message5'|trans }} : <strong>{{ 'mentions.data.message6'|trans }}</strong></p>
+    <p>{{ 'mentions.data.message7'|trans }} <a href="/fr/loi-78-17-du-6-janvier-1978-modifiee">{{ 'mentions.data.message8'|trans }}</a>, {{ 'mentions.data.message9'|trans }}
+        <a href="/fr/le-droit-dacces"> {{ 'mentions.data.message10'|trans }}</a> {{ 'mentions.data.message11'|trans }} <a href="/fr/le-droit-de-rectification">
+            {{ 'mentions.data.message12'|trans }}</a> {{ 'mentions.data.message13'|trans }}. </p>
+    <p>{{ 'mentions.data.message14'|trans }}<br>
+    <p>{{ 'mentions.data.message15'|trans }} <a href="/fr/le-droit-dopposition">{{ 'mentions.data.message16'|trans }}</a>.</p>
+    <p>{{ 'mentions.data.message17'|trans }}, <a href="/fr/comprendre-vos-droits">{{ 'mentions.data.message18'|trans }}</a>.</p>
 {% endblock %}

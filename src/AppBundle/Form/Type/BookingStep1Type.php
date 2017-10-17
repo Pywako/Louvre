@@ -24,8 +24,8 @@ class BookingStep1Type extends AbstractType
                 'invalid_message' => 'Les deux emails ne correspondent pas',
                 'options' => array('attr' =>array('class' => 'email')),
                 'required' => true,
-                'first_options'  => array('label' => 'Email'),
-                'second_options' => array('label' => 'Confirmation Email'),
+                'first_options'  => array('label' => 'step1.email'),
+                'second_options' => array('label' => 'step1.confirmation.email'),
                 ))
             ->add('dateVisit',      DateType::class, [
                 'widget'=> 'single_text',
@@ -36,8 +36,8 @@ class BookingStep1Type extends AbstractType
             ->add('nbTicket',       IntegerType::class)
             ->add('type',      ChoiceType::class, array(
                 'choices' =>array(
-                    'Journée' => Booking::TYPE_DAY,
-                    'Demi-journée' => Booking::TYPE_HALF_DAY,
+                    'step1.journee' => Booking::TYPE_DAY,
+                    'step1.demi.journee' => Booking::TYPE_HALF_DAY,
                 )))
             ->add('continuer', SubmitType::class );
         ;

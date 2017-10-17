@@ -1,0 +1,69 @@
+
+accueil: Accueil
+commander: Commander
+coordonnee: Coordonnées
+paiement: Paiement
+index:
+    bienvenue : Bienvenue sur la platforme de réservation de billet du musée du Louvre.
+    reservation: Réservation
+    reservation.message.1: Possibilité de réservation pour les jours suivants
+    jours: Lundi, Mercredi, Jeudi, Vendredi, Samedi
+    sauf: Sauf
+    reservation.message.2: les jours férier, mardi et dimanche
+    tarif:
+        titre: tarifs
+        standard: Standard (à partir de 12 ans)
+        enfant: Enfant (entre 4 et 12 ans)
+        bebe: Bébé (avant 4 ans)
+        senior: Sénior (à partie de 60 ans)
+        reduit: Réduit (étudiant, employé du musée, service culturels ...)
+        demi.journee: Demi journée ( visite à partir de 14h)
+        gratuis: gratuis
+        demi tarif: demi tarif
+        message: Pour pouvoir bénéficier du tarif réduit, Veuillez apporter les justificatifs correspondant à votre statut.
+
+step1:
+    nombre.billet: Nombre de billet
+    email: Email
+    confirmation.email: Confirmation Email
+    date.visite: Date de visite
+    journee: Journée
+    demi.journee: Demi-journée
+    type.billet: Type de billet
+
+Continuer: Continuer
+
+mentions:
+    titre:
+        principal: Mentions légales
+        website: Le site internet
+        data: Données personnelles
+    website:
+        message1: Ce site internet est
+        fictif: fictif
+        message2: Il est réalisé dans le cadre d'une formation
+        message3: Toutes informations et contenus ont été crée de toute pièce, toutes ressemblances avec des organismes réels ou événements serait purement fortuite
+        dev: Développement
+        image: Droit d'auteur/d'images
+        licence: Licence
+    data:
+        message1: Les informations recueillies sur le site font l’objet d’un traitement informatique destiné à
+        message2: l'équipe de la platforme de réservation du musée
+        message3: Pour la ou les finalité(s) suivante(s)
+        message4: la gestion des billets de réservations
+        message5: Le ou les destinataire(s) des données sont
+        message6: Le service de réservation du musée
+        message7: Conformément à la
+        message8: loi « informatique et libertés » du 6 janvier 1978 modifiée
+        message9: vous disposez d’un
+        message10: droit d’accès
+        message11: et
+        message12: de rectification
+        message13: aux informations qui vous concernent
+        message14: Vous pouvez accèder aux informations vous concernant en vous adressant à l'administrateur du site
+        message15: Vous pouvez également, pour des motifs légitimes
+        message16: vous opposer au traitement des données vous concernant
+        message17: Pour en savoir plus
+        message18: consultez vos droits sur le site de la CNIL
+
+
