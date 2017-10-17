@@ -1,5 +1,7 @@
 commander: Booking
 accueil: Home
+coordonnee: Details
+paiement: Payment
 
 index:
     bienvenue : Louvre Museum's reservation platform
@@ -31,6 +33,26 @@ step1:
     type.billet: Type of ticket
 
 continuer: Continu
+
+ticket:
+    nom: Last name
+    prenom: First name
+    date.naissance: Birth date
+    pays: Choose your country
+    reduit: reduced price
+Tickets: Ticket
+
+
+step3:
+    titre: Booking overview
+    nombre.total.billet: Tickets total number
+    prix.total: Total price
+    paiement.nom: Louvre museum ticketing service
+    boutton: Buy
+
+prix: Price
+oui: Yes
+non: No
 
 mentions:
     titre:

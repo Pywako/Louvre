@@ -4,9 +4,9 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
-                <a href="{{ path('step1') }}" class="breadcrumb">Commander</a>
-                <a href="#" class="breadcrumb">Coordonnés</a>
+                <a href="{{ path('homepage') }}" class="breadcrumb">{{ 'accueil'|trans }}</a>
+                <a href="{{ path('step1') }}" class="breadcrumb">{{ 'commander'|trans }}</a>
+                <a href="#" class="breadcrumb">{{ 'coordonnee'|trans }}</a>
             </div>
         </div>
     </nav>
@@ -15,7 +15,6 @@
     <img src="" id="banniere">
 {% endblock %}
 
-{% block etape %}Coordonnées{% endblock %}
 {% block contenu %}
     {{ form_start(form) }}
     {{ form_label(form.tickets) }}

@@ -31,6 +31,26 @@ step1:
     demi.journee: Demi-journée
     type.billet: Type de billet
 
+ticket:
+    nom: Nom
+    prenom: Prénom
+    date.naissance: Date de naissance
+    pays: Choisissez votre pays
+    reduit: Tarif réduit
+Tickets: Ticket
+
+step3:
+    titre: Récapitulatif de la commande
+    nombre.total.billet: Nombre total de billet
+    prix.total: Prix total
+    paiement.nom: Billetterie du muséee du Louvre
+    boutton: Acheter
+
+
+prix: Prix
+oui: Oui
+non: Non
+
 Continuer: Continuer
 
 mentions:

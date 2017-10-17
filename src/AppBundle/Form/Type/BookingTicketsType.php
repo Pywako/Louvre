@@ -16,17 +16,17 @@ class BookingTicketsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',      TextType::class, array('label' => 'Nom'))
-            ->add('prenom', TextType::class, array('label' => 'Prénom'))
+            ->add('nom',      TextType::class, array('label' => 'ticket.nom'))
+            ->add('prenom', TextType::class, array('label' => 'ticket.prenom'))
             ->add('dateNaissance',      DateType::class, [
                 'widget'=> 'single_text',
                 'html5'=> true,
                 'attr' =>['class' => 'datepicker'],
-                'label' => 'Date de naissance',
+                'label' => 'ticket.date.naissance',
                 'format' => 'dd/MM/yyyy'
                 ])
-            ->add('pays',      CountryType::class, array('label' => 'Pays', 'placeholder' => 'Choisissez un pays'))
-            ->add('reduit', CheckboxType::class, array('required' => false, 'label' => 'Tarif réduit'))
+            ->add('pays',      CountryType::class, array('label' => 'ticket.pays'))
+            ->add('reduit', CheckboxType::class, array('required' => false, 'label' => 'ticket.reduit'))
         ;
     }
 

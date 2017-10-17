@@ -4,10 +4,10 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <div class="col s12">
-                <a href="{{ path('homepage') }}" class="breadcrumb">Accueil</a>
-                <a href="{{ path('step1') }}" class="breadcrumb">Commander</a>
-                <a href="{{ path('step2') }}" class="breadcrumb">Coordonnés</a>
-                <a href="#" class="breadcrumb">Paiement</a>
+                <a href="{{ path('homepage') }}" class="breadcrumb">{{ 'accueil'|trans }}</a>
+                <a href="{{ path('step1') }}" class="breadcrumb">{{ 'commander'|trans }}</a>
+                <a href="{{ path('step2') }}" class="breadcrumb">{{ 'coordonnee'|trans }}</a>
+                <a href="#" class="breadcrumb">{{ 'paiement'|trans }}</a>
             </div>
         </div>
     </nav>
@@ -17,19 +17,19 @@
     <img src="" id="banniere">
 {% endblock %}
 
-{% block etape %}Paiement{% endblock %}
+
 {% block contenu %}
     <div class="row">
         <div class="col s12">
             <div class="row center">
-                <h2>Récapitulatif de la commande</h2>
+                <h2>{{ 'step3.titre'|trans }}</h2>
                 <div>
-                    <p>Date de visite : {{ booking.dateVisit|date("d/m/Y") }}</p>
-                    <p>Type de billet :
+                    <p>{{ 'step1.date.visite'|trans }} : {{ booking.dateVisit|date("d/m/Y") }}</p>
+                    <p>{{ 'step1.type.billet'|trans }} :
                         {% if booking.type == 1 %}
-                            Billet journée
+                            {{ 'step1.journee'|trans }}
                         {% elseif booking.type == 2 %}
-                            Billet Demi journée
+                            {{ 'step1.demi.journee'|trans }}
                         {% endif %}
                     </p>
                 </div>
@@ -37,10 +37,10 @@
                 <table class="highlight centered responsive-table">
                     <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Tarif réduit</th>
-                        <th>Prix</th>
+                        <th>{{ 'ticket.nom'|trans }}</th>
+                        <th>{{ 'ticket.prenom'|trans }}</th>
+                        <th>{{ 'ticket.reduit'|trans }}</th>
+                        <th>{{ 'prix'|trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,9 +49,9 @@
                             <td>{{ ticket.nom }}</td>
                             <td>{{ ticket.prenom }}</td>
                             <td>{% if ticket.reduit == true %}
-                                    Oui
+                                    {{ 'oui'|trans }}
                                 {% elseif ticket.reduit == false %}
-                                    Non
+                                    {{ 'non'|trans }}
                                 {% endif %}</td>
                             <td>{{ ticket.prix }} €</td>
                         </tr>
@@ -60,25 +60,25 @@
                     <tfoot>
                     <tr>
                         <td colspan="3"></td>
-                        <td class="center">Nombre total de billet : {{ booking.nbTicket }}</td>
+                        <td class="center">{{ 'step3.nombre.total.billet'|trans }} : {{ booking.nbTicket }}</td>
 
                     </tr>
                     <tr>
                         <td colspan="3"></td>
-                        <td class="center">Prix total : {{ total }} €</td>
+                        <td class="center">{{ 'step3.prix.total'|trans }} : {{ total }} €</td>
                     </tr>
                     </tfoot>
                 </table>
-                <h2>Paiement</h2>
+                <h2>{{ 'paiement'|trans }}</h2>
                 <form action="" method="POST">
                     <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-label="Acheter"
+                            data-label="{{ 'step3.boutton'|trans }}"
                             data-key="{{ stripe_public_key }}"
                             data-amount="{{ total * 100 }}"
                             data-email="{{ booking.getEmail }}"
-                            data-name="Paiment"
-                            data-description="Billetterie du muséee du Louvre"
+                            data-name="{{ 'paiement'|trans }}"
+                            data-description="{{ 'step3.paiement.nom'|trans }}"
                             data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                             data-locale="auto"
                             data-zip-code="false"
