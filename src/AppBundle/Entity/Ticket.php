@@ -33,9 +33,9 @@ class Ticket
      * @var string
      * @Assert\Type(
      *     type = "string",
-     *     message = "Nom invalide"
+     *     message = "nom.not.correct"
      *     )
-     * @Assert\NotNull(groups={"step2"})
+     * @Assert\NotNull(groups={"step2"}, message="nom.not.null")
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
@@ -44,16 +44,16 @@ class Ticket
      * @var string
      * @Assert\Type(
      *     type = "string",
-     *     message = "Prénom invalide",
+     *     message = "prenom.not.correct",
      *     groups={"step1"})
-     * @Assert\NotNull(groups={"step2"})
+     * @Assert\NotNull(groups={"step2"}, message="prenom.not.null")
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var \DateTime
-     * @Assert\NotNull(groups={"step2"})
+     * @Assert\NotNull(groups={"step2"}, message="dateNaissance.not.null")
      * @ORM\Column(name="dateNaissance", type="date")
      */
     private $dateNaissance;
@@ -61,7 +61,8 @@ class Ticket
     /**
      * @var bool
      * @Assert\Type("bool",
-     *     groups={"step2"})
+     *     groups={"step2"},
+     *     message="reduit.error")
      *
      * @ORM\Column(name="reduit", type="boolean")
      */
@@ -69,18 +70,15 @@ class Ticket
 
     /**
      * @var int
-     * @Assert\Range(
-     *     min = 0,
-     *     max = 300,
-     *     groups={"step2"})
+     * @Assert\NotBlank(groups={"step2"}, message="prix.not.blank")
      * @ORM\Column(name="prix", type="smallint")
      */
     private $prix;
 
     /**
      * @var string
-     * @Assert\Country(groups={"step2"})
-     * @Assert\NotNull(groups={"step2"})
+     * @Assert\Country(groups={"step2"}, message="pays.not.correct")
+     * @Assert\NotNull(groups={"step2"}, message="pays.not.null")
      * @ORM\Column(name="pays", type="string")
      */
     private $pays;

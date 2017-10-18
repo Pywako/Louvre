@@ -32,24 +32,27 @@ class Booking
     /**
      * @var string
      * @Assert\Email(
-     *     message = "Aucun serveur mail n'a été trouvé pour ce domaine",
+     *     message = "email.not.correct",
      *     checkMX=true,
      *     groups={"step1"})
-     * @Assert\NotNull(groups={"step1"})
+     * @Assert\NotNull(groups={"step1"}, message="email.not.null")
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
        /**
      * @var \DateTime
-     * @Assert\DateTime(groups={"step1"})
+     * @Assert\DateTime(groups={"step1"}, message="dateVisit.not.correct")
      * @Assert\Range(
      *     min = "today",
      *     max = "next year UTC",
-     * groups={"step1"})
-     * @BookingAssert\ConstraintNotTuesdaySunday(groups={"step1"})
-     * @BookingAssert\ConstraintHoliday(groups={"step1"})
-     * @Assert\NotNull(groups={"step1"})
+     *     groups={"step1"},
+     *     invalidMessage="dateVisit.range.not.valid",
+     *     minMessage="dateVisit.range.min",
+     *     maxMessage="dateVisit.range.max")
+     * @BookingAssert\ConstraintNotTuesdaySunday(groups={"step1"}, message="dateVisit.not.tuesdaySunday")
+     * @BookingAssert\ConstraintHoliday(groups={"step1"}, message="dateVisit.not.holyday")
+     * @Assert\NotNull(groups={"step1"}, message="dateVisit.not.null")
      * @ORM\Column(name="dateVisit", type="date")
      */
     private $dateVisit;
@@ -66,8 +69,11 @@ class Booking
      * @Assert\Range(
      *     min = 1,
      *     max = 10,
-     *     groups={"step1"})
-     * @Assert\NotNull(groups={"step1"})
+     *     groups={"step1"},
+     *     invalidMessage="nbTicket.not.correct",
+     *     minMessage="nbTicket.min",
+     *     maxMessage="nbTicket.max")
+     * @Assert\NotNull(groups={"step1"}, message="nbTicket.not.null")
      * @ORM\Column(name="nbTicket", type="smallint")
      */
     private $nbTicket;
@@ -81,7 +87,7 @@ class Booking
 
     /**
      * @var int
-     * @Assert\NotNull(groups={"step1"})
+     * @Assert\NotNull(groups={"step1"}, message="type.not.null")
      * @ORM\Column(name="type", type="smallint", length=255)
      */
     private $type;

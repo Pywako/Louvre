@@ -1,0 +1,36 @@
+email:
+    not:
+        correct: l'email saisi est incorrecte, veuillez recommencer
+        null: l'email ne peut être null
+dateVisit:
+    not:
+        correct: La date entrée est erronée
+        tuesdaySunday: La date de visite ne peut pas être un mardi ou dimanche
+        holyday: La date choisi est férier, veuillez choisir une autre date
+        null: veuillez choisir une date valide
+    range:
+        not.valid: La date de visite sélectionné n'est pas réservable, veuillez choisir une autre date.
+        max: La date de visite sélectionné est trop lointaine, veuillez choisir une autre date.
+        min: La date de visite sélectionné est dépassé, veuillez choisir une autre date.
+nbTicket:
+    not:
+        correct: Nombre de ticket incorrect
+        null: Veuillez choisir un nombre de ticket valide
+    max: Vous ne pouvez commander plus de 10 tickets en même temps. Veuillez contacter le musée pour les tarifs de groupe
+    min: Veuillez choisir au minimum 1 ticket
+type.not.null: Veuillez choisir un type de billet
+nom:
+    not:
+        correct: Nom invalide
+        null: Veuillez entrer un nom
+prenom:
+    not:
+        correct: Prénom invalide
+        null: Veuillez entrer un prénom
+dateNaissance.not.null: Veuillez entrer une date de naissance
+reduit: Veuillez choisir une option valide
+prix.not.blank: Le prix ne peut être vide
+pays:
+    not:
+        correct: Le pays renseigné n'est pas correct, veuillez recommencer
+        null: Veuillez choisir un pays dans la liste
