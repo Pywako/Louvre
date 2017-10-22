@@ -30,12 +30,12 @@
     {{ form_end(form) }}
 {% endblock %}
 
+
 {% block javascripts %}
     {{ parent() }}
-
-    {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/fr/step1' %}
+    {% if app.request.locale == 'fr' %}
         <script src="{{ asset('js/datepickerDay_fr.js') }}"></script>
-    {% elseif path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/en/step1' %}
+    {% elseif app.request.locale == 'en' %}
         <script src="{{ asset('js/datepickerDay_en.js') }}"></script>
     {% endif %}
 {% endblock %}
