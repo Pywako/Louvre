@@ -57,12 +57,12 @@ class BookingManager
         }
     }
 
-    public function validateCart($stripe_private_key, Booking $booking)
+    public function validateCart($stripe_private_key, Booking $booking, $locale)
     {
         try{
             $this->stripeManager->chargeBooking($stripe_private_key, $booking->getTotalPrice());
             $this->registerBookingInBdd($booking);
-            $this->mailManager->sendConfirmMessage($booking);
+            $this->mailManager->sendConfirmMessage($booking, $locale);
             $this->emptySession();
         }
         catch (\Exception $e)

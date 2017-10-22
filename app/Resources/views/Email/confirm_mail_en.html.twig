@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<h3>Booking completed</h3>
+<br>
+<p>
+    Thank you for using the museum's internet booking service. <br>
+    Overview of the reservation : <br>
+    <strong>email adress</strong> : {{ booking.email }}<br>
+
+    <strong>Ticket type</strong> :
+    {% if booking.type == 1 %}
+    Full day ticket
+    {% elseif booking.type == 2 %}
+    Half Day ticket
+    {% endif %}<br>
+
+    <strong>Visit Date</strong> : {{ booking.dateVisit|date("d/m/Y") }}<br>
+
+    <strong>Number of ticket</strong> : {{ booking.nbTicket }}<br>
+    <strong>Reservation's code :</strong> : {{ booking.code }}<br>
+    <strong>Visitors :</strong>
+</p>
+<ul>
+    {% for ticket in tickets %}
+        <li>{{ ticket.nom }} {{ ticket.prenom }} {{ ticket.prix }}€</li>
+    {% endfor %}
+</ul>
+<p>
+    <strong>Total price:</strong> {{ total }}<br>
+</p>
+<p>Wishing you a very pleasant visit!</p>
+<p>Musée du Louvre's team</p>
+<div id="logo"><img src="{{ absolute_url(asset('images/logo.png')) }}">
+</div>
+</html>

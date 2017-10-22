@@ -90,7 +90,8 @@ class BookingController extends Controller
             if ($request->isMethod('POST') && $request->get('stripeToken')) {
                 try {
                     $stripe_private_key = $this->getParameter('stripe_private_key');
-                    $bookingManager->validateCart($stripe_private_key, $booking);
+                    $locale = $request->getLocale();
+                    $bookingManager->validateCart($stripe_private_key, $booking, $locale);
                     return $this->redirectToRoute('confirm', ['code' => $booking->getCode()]);
                 } catch (\Exception $e) {
                     $this->addFlash('error', 'Une erreur est survenu pendant la commande, veuillez recommencer.');

@@ -16,9 +16,15 @@ class MailManager
         $this->mailer = $mailer;
     }
 
-    public function sendConfirmMessage(Booking $booking)
+    public function sendConfirmMessage(Booking $booking, $locale)
     {
-        $template = 'Email/confirm_mail.html.twig';
+        if($locale == 'fr'){
+            $template = 'Email/confirm_mail_fr.html.twig';
+        }
+        elseif ($locale == 'en')
+        {
+            $template = 'Email/confirm_mail_en.html.twig';
+        }
         $from = 'eticket@louvremusee.com';
         $to = $booking->getEmail();
         $subject = '[Musee Louvre] E-ticket confirmation';
