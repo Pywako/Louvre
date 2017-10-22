@@ -6,6 +6,9 @@ confirmation: Confirmation
 mentions.legale: mentions légales
 francais: Français
 anglais: English
+error.no.booking: Pas de commande en cours, veuillez recommencer
+message:
+    sucess: Commande effectuée
 index:
     bienvenue : Bienvenue sur la platforme de réservation de billet du musée du Louvre.
     reservation: Réservation

@@ -42,5 +42,5 @@ pays:
     not:
         correct: not a country, please retry
         null: pleasy choose a country
-full: The museum can't have more reservationt for the choosen day, please choose another day
+full: The museum can't have more reservation for the choosen day, please choose another day
 halfdayBooking: it's already past 2pm, please choose half day price

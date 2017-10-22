@@ -6,6 +6,9 @@ confirmation: Confirmation
 mentions.legale: legal notice
 francais: Français
 anglais: English
+error.no.booking: Error, no booking found, please process to booking
+message:
+    sucess: Booking completed
 index:
     bienvenue : Musée du Louvre's reservation platform
     reservation: Reservation

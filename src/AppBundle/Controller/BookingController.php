@@ -68,7 +68,8 @@ class BookingController extends Controller
                 'form' => $form->createView()
             ));
         } else {
-            $this->addFlash('error', 'Pas de commande en cours, veuillez recommencer');
+            $message = $this->get('translator')->trans('error.no.booking');
+            $this->addFlash('error', $message);
             return $this->redirectToRoute('homepage');
         }
     }
@@ -102,7 +103,8 @@ class BookingController extends Controller
                 'tickets' => $booking->getTickets(), 'booking' => $booking, 'total' => $booking->getTotalPrice()
             ));
         } else {
-            $this->addFlash('error', 'Pas de commande en cours, veuillez recommencer');
+            $message = $this->get('translator')->trans('error.no.booking');
+            $this->addFlash('error', $message);
             return $this->redirectToRoute('homepage');
         }
     }
@@ -114,12 +116,14 @@ class BookingController extends Controller
     public function confirmAction(Booking $booking = null, $code = "default")
     {
         if (!empty($booking) && !empty($booking->getCode()) && $code === $booking->getCode()){
+            $message = $this->get('translator')->trans('message.sucess  ');
             $this->addFlash('sucess', 'Commande effectuée');
             return $this->render(':booking:confirm.html.twig', array('tickets' => $booking->getTickets(),
                 'booking' => $booking, 'total' => $booking->getTotalPrice()));
 
         } else {
-            $this->addFlash('error', 'Pas de commande en cours, veuillez recommencer');
+            $message = $this->get('translator')->trans('error.no.booking');
+            $this->addFlash('error', $message);
             return $this->redirectToRoute('homepage');
         }
     }
