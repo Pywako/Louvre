@@ -1,10 +1,11 @@
-commander: Booking
 accueil: Home
+commander: Booking
 coordonnee: Details
 paiement: Payment
 confirmation: Confirmation
 mentions.legale: legal notice
-
+francais: Français
+anglais: English
 index:
     bienvenue : Louvre Museum's reservation platform
     reservation: Reservation
@@ -43,7 +44,6 @@ ticket:
     reduit: reduced price
 Tickets: Ticket
 
-
 step3:
     titre: Booking overview
     nombre.total.billet: Tickets total number
@@ -54,6 +54,7 @@ step3:
 prix: Price
 oui: Yes
 non: No
+Continuer: Continu
 
 confirm:
     titre: Purchase confirmation

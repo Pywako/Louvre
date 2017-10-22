@@ -1,11 +1,11 @@
-
 accueil: Accueil
 commander: Commander
 coordonnee: Coordonnées
 paiement: Paiement
 confirmation: Confirmation
 mentions.legale: mentions légales
-
+francais: Français
+anglais: English
 index:
     bienvenue : Bienvenue sur la platforme de réservation de billet du musée du Louvre.
     reservation: Réservation
@@ -33,6 +33,8 @@ step1:
     journee: Journée
     demi.journee: Demi-journée
     type.billet: Type de billet
+
+continuer: Continuer
 
 ticket:
     nom: Nom
@@ -95,5 +97,3 @@ mentions:
         message16: vous opposer au traitement des données vous concernant
         message17: Pour en savoir plus
         message18: consultez vos droits sur le site de la CNIL
-
-

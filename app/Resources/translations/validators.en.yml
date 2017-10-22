@@ -1,0 +1,41 @@
+email:
+    not:
+        correct: email error, please retry again
+        null: email can't be empty
+dateVisit:
+    not:
+        correct: Visit date not correct, please retry again
+        tuesdaySunday: Visit date can't be tuesday or sunday, please choose another day
+        holyday: Visite date is holyday, please choose another day
+        null: Visit date can't be empty
+    range:
+        not.valid: Visit date not valid, please retry again
+        max: Visit date too far in the future, please retry again
+        min: Past Visit date, please retry again
+nbTicket:
+    not:
+        correct: ticket number not correct, please try again
+        null: Ticket number error, please try again
+    max: you can't buy more than 10 tickets in a row, please contact museum's service for group tarification
+    min: you have to buy at least 1 ticket
+type.not.null: please choose the ticket type
+nom:
+    not:
+        correct: This is not a name
+        null: Name empty
+    length:
+            max: Last name too long
+            min: Last name too short
+prenom:
+    not:
+        correct: first name error, please retry
+        null: first name can't be null, please retry
+dateNaissance.not.null: Please put a birthday
+reduit: please choose a correct option
+prix.not.blank: empty price
+pays:
+    not:
+        correct: not a country, please retry
+        null: pleasy choose a country
+full: The museum can't have more reservationt for the choosen day, please choose another day
+halfdayBooking: it's already past 2pm, please choose half day price

@@ -23,6 +23,9 @@ nom:
     not:
         correct: Nom invalide
         null: Veuillez entrer un nom
+    length:
+        max: Nom trop long
+        min: Nom trop court
 prenom:
     not:
         correct: Prénom invalide
@@ -34,3 +37,5 @@ pays:
     not:
         correct: Le pays renseigné n'est pas correct, veuillez recommencer
         null: Veuillez choisir un pays dans la liste
+full: Le musée a dépassé la capacité d'accueil pour le jour choisi, veuillez choisir une autre date
+halfdayBooking: Il est 14h passé, veuillez choisir le tarif demi journée.
