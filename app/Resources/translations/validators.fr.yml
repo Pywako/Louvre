@@ -26,14 +26,17 @@ nom:
         null: Veuillez entrer un nom
         number: Le nom ne peut contenir de chiffre
     length:
-        max: Nom trop long
-        min: Nom trop court
+        max: Nom trop long, veuillez recommencer
+        min: Nom trop court, veuillez recommencer
 prenom:
     not:
         correct: Prénom invalide
         null: Veuillez entrer un prénom
-dateNaissance.not.null: Veuillez entrer une date de naissance
-reduit: Veuillez choisir une option valide
+dateNaissance:
+    not:
+        null: Veuillez entrer une date de naissance
+        correct: erreur date, Veuillez entrer une date de naissance
+reduit.error: Veuillez choisir une option valide
 prix.not.blank: Le prix ne peut être vide
 pays:
     not:

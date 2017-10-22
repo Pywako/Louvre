@@ -26,14 +26,17 @@ nom:
         null: Name empty
         number: Name can't contain number
     length:
-            max: Last name too long
-            min: Last name too short
+            max: Last name too long, please try again
+            min: Last name too short, please try again
 prenom:
     not:
         correct: first name error, please retry
         null: first name can't be null, please retry
-dateNaissance.not.null: Please put a birthday
-reduit: please choose a correct option
+dateNaissance:
+    not:
+        null: Please put a birthday
+        correct: birthday error, please put a date
+reduit.error: please choose a correct option
 prix.not.blank: empty price
 pays:
     not:

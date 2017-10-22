@@ -31,15 +31,17 @@ class Ticket
 
     /**
      * @var string
-     * @Assert\Type(
-     *     type = "string",
-     *     message = "nom.not.correct"
-     *     )
      * @Assert\Length(
+     *     groups={"step2"},
      *      min = 2,
      *      max = 50,
-     *      minMessage = "length.min",
-     *      maxMessage = "length.man"
+     *      minMessage = "nom.length.min",
+     *      maxMessage = "nom.length.max"
+     * )
+     * @Assert\Regex(
+     *     groups={"step2"},
+     *     pattern="#[A-Za-z-]#",
+     *     message="nom.not.correct"
      * )
      * @Assert\NotNull(groups={"step2"}, message="nom.not.null")
      * @ORM\Column(name="nom", type="string", length=255)
@@ -48,17 +50,19 @@ class Ticket
 
     /**
      * @var string
-     * @Assert\Type(
-     *     type = "string",
-     *     message = "prenom.not.correct",
-     *     groups={"step1"})
      * @Assert\NotNull(groups={"step2"}, message="prenom.not.null")
+     * @Assert\Regex(
+     *     groups={"step2"},
+     *     pattern="#[A-Za-z-]#",
+     *     message="prenom.not.correct"
+     * )
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom;
 
     /**
      * @var \DateTime
+     * @Assert\DateTime(groups={"step2"}, message="dateNaissance.not.correct")
      * @Assert\NotNull(groups={"step2"}, message="dateNaissance.not.null")
      * @ORM\Column(name="dateNaissance", type="date")
      */
@@ -66,10 +70,6 @@ class Ticket
 
     /**
      * @var bool
-     * @Assert\Type("bool",
-     *     groups={"step2"},
-     *     message="reduit.error")
-     *
      * @ORM\Column(name="reduit", type="boolean")
      */
     private $reduit;

@@ -25,7 +25,10 @@ class BookingTicketsType extends AbstractType
                 'label' => 'ticket.date.naissance',
                 'format' => 'dd/MM/yyyy'
                 ])
-            ->add('pays',      CountryType::class, array('label' => 'ticket.pays'))
+            ->add('pays',      CountryType::class, array(
+                'label' => 'ticket.pays',
+                'preferred_choices' => array('France', 'United States', 'Japan', 'China')
+                ))
             ->add('reduit', CheckboxType::class, array('required' => false, 'label' => 'ticket.reduit'))
         ;
     }
