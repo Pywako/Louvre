@@ -116,7 +116,7 @@ class BookingController extends Controller
     public function confirmAction(Booking $booking = null, $code = "default")
     {
         if (!empty($booking) && !empty($booking->getCode()) && $code === $booking->getCode()){
-            $message = $this->get('translator')->trans('message.sucess  ');
+            $message = $this->get('translator')->trans('message.sucess');
             $this->addFlash('sucess', 'Commande effectuée');
             return $this->render(':booking:confirm.html.twig', array('tickets' => $booking->getTickets(),
                 'booking' => $booking, 'total' => $booking->getTotalPrice()));
