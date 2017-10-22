@@ -32,6 +32,16 @@
     </header>
     <!------------------------ Contenu ------------------------>
     <div class="container" id="contenu">
+        <div class="row" id="langue">
+            <ul id="langueDropdown" class="dropdown-content">
+                <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}" class="light-blue-text">
+                        {{'francais'|trans}}</a></li>
+                <li><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}" class="light-blue-text">
+                        {{'anglais'|trans}}</a></li>
+            </ul>
+            <a class="btn-floating right btn-large amber accent-4 dropdown-button" data-activates="langueDropdown"><i class="large material-icons">language</i></a>
+        </div>
+
         <div class="row">
             {% block breadcrumbs %}
             {% endblock %}
@@ -107,6 +117,7 @@
     <script>
         $(document).ready(function () {
             $('select').material_select();
+            $("select[required]").css({display: "inline", height: 0, padding: 0, width: 0});
         });
     </script>
 {% endblock %}
