@@ -58,7 +58,7 @@ Continuer: Continuer
 
 confirm:
     titre: Confirmation d'achat
-    message1: La transaction s'est bien déroulé
+    message1: La transaction s'est bien déroulée
     message2: Un email contenant votre code de réservation vous a été envoyé à
     message3: En cas de problème veuillez contacter l'administrateur avec le code de réservation suivant
     recapitulatif: Récapitulatif de la commande
