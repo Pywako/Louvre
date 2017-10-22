@@ -2,6 +2,7 @@ email:
     not:
         correct: l'email saisi est incorrecte, veuillez recommencer
         null: l'email ne peut être null
+        same: Les deux emails ne correspondent pas
 dateVisit:
     not:
         correct: La date entrée est erronée
@@ -23,6 +24,7 @@ nom:
     not:
         correct: Nom invalide
         null: Veuillez entrer un nom
+        number: Le nom ne peut contenir de chiffre
     length:
         max: Nom trop long
         min: Nom trop court

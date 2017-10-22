@@ -21,7 +21,7 @@ class BookingStep1Type extends AbstractType
         $builder
             ->add('email',      RepeatedType::class, array(
                 'type'=> EmailType::class,
-                'invalid_message' => 'Les deux emails ne correspondent pas',
+                'invalid_message' => 'email.not.same',
                 'options' => array('attr' =>array('class' => 'email')),
                 'required' => true,
                 'first_options'  => array('label' => 'step1.email'),

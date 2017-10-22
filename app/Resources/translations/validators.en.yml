@@ -2,6 +2,7 @@ email:
     not:
         correct: email error, please retry again
         null: email can't be empty
+        same: the two email doesn't match
 dateVisit:
     not:
         correct: Visit date not correct, please retry again
@@ -23,6 +24,7 @@ nom:
     not:
         correct: This is not a name
         null: Name empty
+        number: Name can't contain number
     length:
             max: Last name too long
             min: Last name too short
