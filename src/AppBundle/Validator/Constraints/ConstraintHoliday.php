@@ -12,6 +12,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class ConstraintHoliday extends Constraint
 {
-    public $message = "{{ string }} : La date choisi est férier, veuillez choisir une autre date";
+    public $message = "{{ string }} : Jour férier, veuillez choisir une autre date";
     
 }

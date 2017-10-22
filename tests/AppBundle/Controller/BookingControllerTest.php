@@ -26,12 +26,13 @@ class BookingControllerTest extends WebTestCase
     public function UrlDataProvider()
     {
         return [
-            ['/', Response::HTTP_OK],
-            ['/mentions', Response::HTTP_OK],
-            ['/step1', Response::HTTP_OK],
-            ['/step2', Response::HTTP_FOUND],
-            ['/step3', Response::HTTP_FOUND],
-            ['/confirm', Response::HTTP_FOUND]
+            ['/fr/', Response::HTTP_OK],
+            ['/en/', Response::HTTP_OK],
+            ['/fr/mentions', Response::HTTP_OK],
+            ['/fr/step1', Response::HTTP_OK],
+            ['/fr/step2', Response::HTTP_FOUND],
+            ['/fr/step3', Response::HTTP_FOUND],
+            ['/fr/confirm', Response::HTTP_FOUND]
         ];
     }
 
@@ -46,7 +47,7 @@ class BookingControllerTest extends WebTestCase
 
     public function testOrderFlow()
     {
-        $crawler = $this->client->request('GET', '/step1');
+        $crawler = $this->client->request('GET', 'fr/step1');
 
         $bookingForm = $crawler->selectButton('Continuer')->form();
         $bookingForm['booking_step1[email][first]'] = 'wongaliceyy@gmail.com';
