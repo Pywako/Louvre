@@ -12,8 +12,8 @@ use AppBundle\Validator\Constraints as BookingAssert;
  *
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookingRepository")
- * @BookingAssert\ConstraintHalfDayBooking(groups={"step1"})
- * @BookingAssert\ConstraintFull(groups={"step1"})
+ * @BookingAssert\ConstraintHalfDayBooking(groups={"step1"}, message="halfdayBooking")
+ * @BookingAssert\ConstraintFull(groups={"step1"}, message="full")
  */
 class Booking
 {

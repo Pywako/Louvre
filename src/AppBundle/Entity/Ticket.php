@@ -35,6 +35,12 @@ class Ticket
      *     type = "string",
      *     message = "nom.not.correct"
      *     )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "length.min",
+     *      maxMessage = "length.man"
+     * )
      * @Assert\NotNull(groups={"step2"}, message="nom.not.null")
      * @ORM\Column(name="nom", type="string", length=255)
      */
@@ -70,7 +76,7 @@ class Ticket
 
     /**
      * @var int
-     * @Assert\NotBlank(groups={"step2"}, message="prix.not.blank")
+     * @Assert\NotBlank( message="prix.not.blank")
      * @ORM\Column(name="prix", type="smallint")
      */
     private $prix;
@@ -79,6 +85,7 @@ class Ticket
      * @var string
      * @Assert\Country(groups={"step2"}, message="pays.not.correct")
      * @Assert\NotNull(groups={"step2"}, message="pays.not.null")
+     *
      * @ORM\Column(name="pays", type="string")
      */
     private $pays;
