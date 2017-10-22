@@ -100,7 +100,7 @@ class BookingController extends Controller
             }
             return $this->render(':booking:step3.html.twig', array(
                 'stripe_public_key' => $this->getParameter('stripe_public_key'),
-                'tickets' => $booking->getTickets(), 'booking' => $booking, 'total' => $booking->getTotalPrice()
+                'tickets' => $booking->getTickets(), 'booking' => $booking, 'total' => $booking->getTotalPrice(), 'locale' => $request->getLocale()
             ));
         } else {
             $message = $this->get('translator')->trans('error.no.booking');
