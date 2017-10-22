@@ -20,10 +20,10 @@
 {% block contenu %}
     {{ form_start(form) }}
     {{ form_errors(form) }}
-        {{ form_row(form.nbTicket,{'label': 'step1.nombre.billet'}) }}
-        {{ form_row(form.email, {'label': 'step1.email'}) }}
-        {{ form_row(form.dateVisit, {'label': 'step1.date.visite'}) }}
-        {{ form_row(form.type, {'label': 'step1.type.billet'}) }}
+    {{ form_row(form.nbTicket,{'label': 'step1.nombre.billet'}) }}
+    {{ form_row(form.email, {'label': 'step1.email'}) }}
+    {{ form_row(form.dateVisit, {'label': 'step1.date.visite'}) }}
+    {{ form_row(form.type, {'label': 'step1.type.billet'}) }}
     <div class="row center">
         {{ form_row(form.continuer, {'attr': {'class' : 'waves-effect waves-light btn amber accent-4'}}) }}
     </div>
@@ -32,6 +32,11 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/datepickerDay.js') }}"></script>
+
+    {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/fr/step1' %}
+        <script src="{{ asset('js/datepickerDay_fr.js') }}"></script>
+    {% elseif path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/en/step1' %}
+        <script src="{{ asset('js/datepickerDay_en.js') }}"></script>
+    {% endif %}
 {% endblock %}
 

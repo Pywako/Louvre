@@ -35,5 +35,9 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/datepickerBirth.js') }}"></script>
+    {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/fr/step2' %}
+        <script src="{{ asset('js/datepickerBirth_fr.js') }}"></script>
+    {% elseif path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == '/Louvre/web/app_dev.php/en/step2' %}
+        <script src="{{ asset('js/datepickerBirth_en.js') }}"></script>
+    {% endif %}
 {% endblock %}
