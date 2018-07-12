@@ -12,12 +12,12 @@ Technologies utilisées:
 Cahier des charges: 
 ----
 - Design Responsive
-- Interface fonctionnelles et rapide
+- Interface fonctionnelle et rapide
 - Contraintes: 
   - Tarif journée, demi journée (à partir de 14h)
   Possibilité de commander pour le jour même (après 14h seul le billet demi journée pourra être réservé)
-  - Possibilité de réservation seulement pour les jours définis et ouvert 
-  (blocaque des réservation pour les mardi, dimanche, jours fériers, et jours où  plus de 1000 billets ont été vendus)
+  - Possibilité de réservation seulement pour les jours définis et ouverts 
+  (blocaque des réservation pour les mardi, dimanche, jours fériers, et les jours où  plus de 1000 billets ont été vendus)
   - Plusieurs tarifs (normal, enfant, senior, réduit) en fonction de l'âge
 
 - Pour commander il faudra renseigner:
@@ -26,8 +26,8 @@ Cahier des charges:
   - le nombre de billets souhaités
   
 - Pour chaque billet, l'utilisateur doit indiquer son nom, prénom, pays, date de naissance (qui déterminera le tarif du billet)
-- Case tarif réduit, 
+- Case à cocher tarif réduit, 
 
-- Pas nécéssité de création de compte, seul l'email sera utilisé pour envoyer le billet à l'utilisateur
+- l'email sera utilisé pour envoyer le billet à l'utilisateur (pas de création de compte nécessaire)
 
 - Solution de paiement par carte bancaire avec la solution Stripe
